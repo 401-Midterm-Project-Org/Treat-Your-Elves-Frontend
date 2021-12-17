@@ -92,8 +92,10 @@ As my secret santa group's admin, I want to easily be able to send out notificat
 
 * implement button for initiating secret santa pairings *
 * implement interface for notifications - deadline for getting items *
+* implement interface for adding users to a group *
 
 *Acceptance:*
 
 * When interacting with buttons for creating secret santa pairings, some sort of confirmation is given to the admin, and a notification is sent to group members telling them their secret gift recipient *
 * when the admin pushes for a notification to be sent out, the group members receive that notification *
+* when a user's email is input into a form, that user gets added to the "group users" *
