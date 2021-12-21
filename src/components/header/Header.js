@@ -12,8 +12,11 @@ import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
+  const { loginWithRedirect, logout } = useAuth0();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -27,13 +30,15 @@ export default function Header() {
             >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" color="light" sx={{ flexGrow: 1 }}>
+          <Typography variant="h3" component="div" color="light" sx={{ flexGrow: 1 }}>
             Treat Your Elves
           </Typography>
-          <Button color="light"><AddCircleTwoToneIcon />SIGN-UP</Button>
-          <Button color="light"><LoginTwoToneIcon />LOGIN</Button>
-          <Button color="light"><AccountCircleTwoToneIcon />ACCOUNT</Button>
-          <Button color="light"><LogoutTwoToneIcon />LOGOUT</Button>
+          <Button color="secondary"><AddCircleTwoToneIcon />SIGN-UP</Button>
+          <Button color="secondary" onClick={() => loginWithRedirect()}><LoginTwoToneIcon />LOGIN</Button>
+          <Button color="secondary"><AccountCircleTwoToneIcon />ACCOUNT</Button>
+
+
+          <Button color="secondary" onClick={() => logout({ returnTo: window.location.origin })}><LogoutTwoToneIcon />LOGOUT</Button>
         </Toolbar>
       </AppBar>
     </Box>
