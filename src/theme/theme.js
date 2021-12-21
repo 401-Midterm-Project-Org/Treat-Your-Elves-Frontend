@@ -6,8 +6,11 @@ const theme = createTheme({
         main: '#064C3F',
       },
       secondary: {
-        main: '#412528',
+        main: '#F1F8F3',
         light: '#EFD2D8',
+      },
+      third: {
+        main: '#412528',
       },
       light: {
         main: '#F1F8F3',
@@ -16,3 +19,4 @@ const theme = createTheme({
 });
 
 export default theme;
+
