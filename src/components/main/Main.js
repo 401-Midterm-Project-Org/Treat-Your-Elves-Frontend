@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 
 import Admin from "../main/Admin";
+import Group from './Group';
 
 export default function Main() {
   return (
@@ -30,7 +31,8 @@ export default function Main() {
           },
         }}
       >
-        To contain Group Members/Recipient/Wishlist/Admin/Group Number(Name)
+        {/* To contain Group Members/Recipient/Wishlist/Admin/Group Number(Name) */}
+        <Group />
       </Box>
       <Box
         sx={{
