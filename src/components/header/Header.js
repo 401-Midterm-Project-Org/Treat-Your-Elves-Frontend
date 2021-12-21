@@ -1,17 +1,16 @@
-import * as React from "react";
+import * as React from 'react';
+
 import {
   AppBar,
   Box,
   Toolbar,
   Typography,
-  Button,
   IconButton,
 } from "@mui/material/";
-import MenuIcon from "@mui/icons-material/Menu";
-import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
-import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
-import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
-import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import MenuIcon from '@mui/icons-material/Menu';
+import HeaderButtons from './HeaderButtons';
+
+
 
 export default function Header() {
   return (
@@ -24,28 +23,13 @@ export default function Header() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-          >
+            >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h3" component="div" color="light" sx={{ flexGrow: 1 }}>
             Treat Your Elves
           </Typography>
-          <Button color="inherit">
-            <AddCircleTwoToneIcon />
-            SIGN-UP
-          </Button>
-          <Button color="inherit">
-            <LoginTwoToneIcon />
-            LOGIN
-          </Button>
-          <Button color="inherit">
-            <AccountCircleTwoToneIcon />
-            ACCOUNT
-          </Button>
-          <Button color="inherit">
-            <LogoutTwoToneIcon />
-            LOGOUT
-          </Button>
+          <HeaderButtons />
         </Toolbar>
       </AppBar>
     </Box>
