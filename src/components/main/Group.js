@@ -5,8 +5,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import * as React from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Group({myGroups}) {
+
+  const { user } = useAuth0();
+
   return (
     <>
       <Typography variant="h4" component="div">My Groups</Typography>

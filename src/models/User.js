@@ -1,5 +1,5 @@
 class User {
-  username;
+  email;
   firstName;
   lastName;
 }
