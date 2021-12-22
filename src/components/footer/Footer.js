@@ -10,7 +10,7 @@ export default function Footer() {
       padding-bottom="2.5rem"
     >
       <AppBar position="absolute" bottom="0" width="100%" height="2.5rem">
-        <Toolbar>Place Holder for Footer Icons / Links</Toolbar>
+        <Toolbar><a href="https://icons8.com/icon/cBCCvlQwZrNE/elf">Elf icon by Icons8</a></Toolbar>
       </AppBar>
     </Box>
   );
