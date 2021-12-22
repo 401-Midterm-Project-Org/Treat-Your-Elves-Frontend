@@ -8,6 +8,7 @@ import Members from'./Members';
 
 export default function Main() {
   const [groups, setGroups] = useState(['default1', 'default2']);
+  const [members, setMembers] = useState(['default1']);
 
   return (
     <div>
@@ -36,7 +37,7 @@ export default function Main() {
           backgroundColor: "secondary.main",
         }}
       >
-        <Members />
+        <Members myMembers={members} myMembersSetter={setMembers}/>
       </Box>
     </div>
   );
