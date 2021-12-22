@@ -27,7 +27,7 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h3" component="div" color="light" sx={{ flexGrow: 1 }}>
-            <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-elf-christmas-vitaliy-gorbachev-lineal-vitaly-gorbachev.png"/>
+            <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-elf-christmas-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" alt="logo"/>
             Treat Your Elves
           </Typography>
           <HeaderButtons />
