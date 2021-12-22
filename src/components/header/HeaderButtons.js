@@ -29,7 +29,6 @@ const style = {
 
 export default function HeaderButtons() {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-  console.log(user);
 
   const [open, setOpen] = React.useState(false);
 

@@ -5,24 +5,27 @@ const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 class HttpService {
     
 // login
-    static login({email, firstName, lastName}) {
-        // send post to backend
-        axios.post(APP_URL + '/signin', {
+    static login(email, firstName, lastName) {
+        const obj = {
             email,
             firstName,
             lastName
-        })
+        };
+
+        const URL = APP_URL + '/signin';
+        console.log(URL);
+
+        // send post to backend
+        const response = axios.post(URL, obj)
         .then(function (response) {
-            console.log(response);
+            console.log('should be after api call');
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
 
-        // todo: backend
-        //  - Check user exists
-        //  - if not exists, add user details to db, get token, then that's the user
-        //  - if exists, get token, that's the user
+        return response.data;
     }
 
 // logout
@@ -39,13 +42,18 @@ class HttpService {
     }
 
 // create group
-    static createGroup({groupName}) {
-        let groupId = -1;
+// Main component will have useState for user object that comes from the backend db
+// --> pass in the user.userId
+// groupID is returned from db on create
+    static async createGroup({groupName, groupAdminId}) {
+        const response = await axios.post(APP_URL + '/groups', {
+            groupName,
+            groupAdminId
+        })
 
         // make the group on backend
         // backend gives us a groupId
-
-        return groupId;
+        return response.groupID;
     }
 
 // get user's groups
@@ -65,4 +73,4 @@ class HttpService {
 
 }
 
-module.exports = HttpService;
+export default HttpService;
