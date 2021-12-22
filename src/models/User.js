@@ -1,6 +1,7 @@
 class User {
   username;
-  name;
+  firstName;
+  lastName;
 }
 
 module.exports = User;
