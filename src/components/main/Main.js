@@ -3,24 +3,49 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 
 import Admin from "../main/Admin";
-import Group from './Group';
+import GroupInterface from './GroupInterface';
 import Members from './Members';
 import User from '../../models/User';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
 
-
 export default function Main() {
   const { user, isAuthenticated } = useAuth0();
-  const [groups, setGroups] = useState(['default1', 'default2']);
-  const [members, setMembers] = useState(['default1']);
 
-  // this gives us the "data" property, which is the backend user model
-  const dbUserModel = isAuthenticated ? HttpService.login(user.email, user.given_name, user.family_name) : null;
+  // let dbUserModel = {id: 10, email: 'test@helloworld.com'};
+  // let groupIds = [1234, 56];
+  // let members = ['member1','member2'];
+  let dbUserModel;
+  let groupIds;
+  let members;
 
-  // todo: pass dbUserModel data through to the child components
+  if (isAuthenticated) {
+    // todo: how to block an async call without using await
+    dbUserModel = HttpService.login(user.email, user.given_name, user.family_name);
+    // console.log('MAIN -->', dbUserModel);
+
+    // groups on associations table
+    groupIds = HttpService.getUsersGroups(dbUserModel.id);
+    members = HttpService.getGroupMembers([1234, 456]); // todo: need a group id for this to work
+  }
+
+  function setMembers(members){
+    // todo: update the members variable
+    // return [...members] new members
+  }
+
+  function setGroups(groupId){
+    // change the object "groups" to be a new object
+    // add previous groups, plus the new group
+    groupIds = [...groupIds, groupId];
+  }
+
+
+
   // --> id, email, firtName, lastName, createdAt, updatedAt
+  // const dbUserModel = isAuthenticated ? HttpService.login(user.email, user.given_name, user.family_name) : null;
+  // todo: pass dbUserModel data through to the child components
 
 
   return (
@@ -42,7 +67,7 @@ export default function Main() {
               backgroundColor: "primary.dark",
             }}
           >
-              <Group myGroups={groups} myGroupsSetter={setGroups} />
+              <GroupInterface myGroups={groupIds} groupsSetter={setGroups} groupAdminId={dbUserModel.id}/>
             </Box><Box
               sx={{
                 width: 800,
