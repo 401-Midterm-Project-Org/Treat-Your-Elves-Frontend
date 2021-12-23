@@ -1,50 +1,43 @@
-import * as React from "react";
-
-
-import Admin from "../main/Admin";
+import {useAuth0} from '@auth0/auth0-react';
+import React, {useState} from 'react';
+import Admin from '../main/Admin';
 import GroupInterface from './GroupInterface';
 import Members from './Members';
-import User from '../../models/User';
 
-import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
 import { Typography, Box } from "@mui/material";
 
+
 export default function Main() {
-  const { user, isAuthenticated } = useAuth0();
+  let dbUserModel = {id: 10, email: 'test@helloworld.com'};
+  let groupIds = [1234, 56];
+  let members = ['member1','member2'];
+  const setGroupIds = (...ids) => [...groupIds, ...ids];
+  const setMembers = (...m)  => [...members, ...m];
 
-  // let dbUserModel = {id: 10, email: 'test@helloworld.com'};
-  // let groupIds = [1234, 56];
-  // let members = ['member1','member2'];
-  let dbUserModel;
-  let groupIds;
-  let members;
+  const {user, isAuthenticated} = useAuth0();
+  /*
+  const [dbUserModel, setDbUserModel] = useState(async () =>
+    isAuthenticated
+      ? await HttpService.login(user.email, user.given_name, user.family_name)
+      : {});
+  const [groupIds, setGroupIds] = useState(async () =>
+    isAuthenticated
+      ? await HttpService.getUsersGroups(dbUserModel.id)
+      : [1234, 56]);
+  const [members, setMembers] = useState(async () =>
+    isAuthenticated
+      ? await HttpService.getGroupMembers([1234, 456])
+      : ['default1', 'default2']);
+   */
 
-  if (isAuthenticated) {
-    // todo: how to block an async call without using await
-    dbUserModel = HttpService.login(user.email, user.given_name, user.family_name);
-    // console.log('MAIN -->', dbUserModel);
-
-    // groups on associations table
-    groupIds = HttpService.getUsersGroups(dbUserModel.id);
-    members = HttpService.getGroupMembers([1234, 456]); // todo: need a group id for this to work
-  }
-
-  function setMembers(members){
-    // todo: update the members variable
-    // return [...members] new members
-  }
-
-  function setGroups(groupId){
-    // change the object "groups" to be a new object
-    // add previous groups, plus the new group
-    groupIds = [...groupIds, groupId];
-  }
-
-
+  /*
+  setDbUserModel(async () => isAuthenticated && await HttpService.login(user.email, user.given_name, user.family_name));
+  setGroupIds(async () => isAuthenticated && await HttpService.getUsersGroups(dbUserModel.id));// groups on associations table
+  setMembers(async () => isAuthenticated && await HttpService.getGroupMembers([1234, 456])); // todo: need a group id for this to work
+  */
 
   // --> id, email, firtName, lastName, createdAt, updatedAt
-  // const dbUserModel = isAuthenticated ? HttpService.login(user.email, user.given_name, user.family_name) : null;
   // todo: pass dbUserModel data through to the child components
 
 
@@ -53,17 +46,17 @@ export default function Main() {
       {
         isAuthenticated ?
           <Box id="maincontent"
-            sx={{
-              justifycontent: "center",
-              width: 1,
-              height: 1,
-              backgroundColor: "light.main",
-              color: "secondary.main",
-              m: 1,
-            }}
+               sx={{
+                 justifycontent: "center",
+                 width: 1,
+                 height: 1,
+                 backgroundColor: "light.main",
+                 color: "secondary.main",
+                 m: 1,
+               }}
           >
             <div id="toolbar">
-              <Box 
+              <Box
                 sx={{
                   m: 1,
                   padding: 1,
@@ -84,17 +77,17 @@ export default function Main() {
                   backgroundColor: "primary.main",
                 }}
               >
-                <GroupInterface myGroups={groupIds} groupsSetter={setGroups} groupAdminId={dbUserModel.id}/>
+                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds} groupAdminId={dbUserModel.id}/>
               </Box>
             </div>
-            <Box 
-              sx={{                  
+            <Box
+              sx={{
                 backgroundColor: "third.main",
                 height: 1,
                 width: 1,
               }}
               id="groupinterface"
-            > 
+            >
               <Typography sx={{fontSize: 30}}>GROUP</Typography>
               <Box
                 sx={{
@@ -111,19 +104,19 @@ export default function Main() {
 
             </Box>
           </Box>
-        :
-        <Box 
+          :
+          <Box
             sx={{
-            justifycontent: "center",
-            alignItems: 'center',
-            width: 1,
-            height: 800,
-            backgroundColor: "light.main",
-            color: "third.main"
-          }}
-        >
-          <Typography>Not Logged In</Typography>
-        </Box>
+              justifycontent: "center",
+              alignItems: 'center',
+              width: 1,
+              height: 800,
+              backgroundColor: "light.main",
+              color: "third.main"
+            }}
+          >
+            <Typography>Not Logged In</Typography>
+          </Box>
       }
     </main>
   );
