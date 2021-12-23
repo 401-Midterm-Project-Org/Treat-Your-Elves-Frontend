@@ -16,17 +16,6 @@ export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
   // groupName, groupAdminId
   const [groupName, setGroupName] = useState('default');
 
-  function setGroups(groupName){
-    /*
-    // create the group at the backend
-    // and return the group id
-    const groupId = HttpService.createGroup(groupName, groupAdminId);
-
-    // push the group id up to the main component
-    groupsSetter(groupId);
-    */
-  }
-
   return (
     <>
       <Typography variant="h4" component="div">My Groups</Typography>
@@ -36,14 +25,14 @@ export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
             <Input onChange={event => setGroupName(event.target.value)} id="my-input" aria-describedby="my-helper-text" />
             <FormHelperText id="my-helper-text">eg. My Amazing Group</FormHelperText>
           </FormControl>
-          <Button variant="contained" onClick={setGroups(groupName)} >+ Create Group</Button>
+          <Button variant="contained" onClick={() => groupsSetter(groupName)}>+ Create Group</Button>
         </FormGroup>
       <List>
         {
-          myGroups.map(group => (
-            <ListItem disablePadding>
+          myGroups.map(groupId => (
+            <ListItem key={groupId} disablePadding>
               <ListItemButton>
-                <ListItemText primary={group}/>
+                <ListItemText primary={groupId}/>
               </ListItemButton>
             </ListItem>
           ))
