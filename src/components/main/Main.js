@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
+
 
 import Admin from "../main/Admin";
 import GroupInterface from './GroupInterface';
@@ -9,6 +8,7 @@ import User from '../../models/User';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
+import { Typography, Box } from "@mui/material";
 
 export default function Main() {
   const { user, isAuthenticated } = useAuth0();
@@ -49,39 +49,82 @@ export default function Main() {
 
 
   return (
-    <div>
+    <main>
       {
         isAuthenticated ?
-          <><Box
+          <Box id="maincontent"
             sx={{
-              width: 600,
-              height: 100,
-              backgroundColor: "secondary.main",
+              justifycontent: "center",
+              width: 1,
+              height: 1,
+              backgroundColor: "light.main",
+              color: "secondary.main",
+              m: 1,
             }}
           >
-            <Admin />
-          </Box><Box
-            sx={{
-              width: 500,
-              height: 500,
-              backgroundColor: "primary.dark",
-            }}
-          >
-              <GroupInterface myGroups={groupIds} groupsSetter={setGroups} groupAdminId={dbUserModel.id}/>
-            </Box><Box
-              sx={{
-                width: 800,
-                height: 300,
-                backgroundColor: "secondary.main",
+            <div id="toolbar">
+              <Box 
+                sx={{
+                  m: 1,
+                  padding: 1,
+                  width: 250,
+                  height: 150,
+                  backgroundColor: "primary.main",
+                  fontSize: 12,
+                }}
+              >
+                <Admin />
+              </Box>
+              <Box
+                sx={{
+                  m: 1,
+                  padding: 1,
+                  width: 250,
+                  height: 1,
+                  backgroundColor: "primary.main",
+                }}
+              >
+                <GroupInterface myGroups={groupIds} groupsSetter={setGroups} groupAdminId={dbUserModel.id}/>
+              </Box>
+            </div>
+            <Box 
+              sx={{                  
+                backgroundColor: "third.main",
+                height: 1,
+                width: 1,
               }}
-            >
-              <Members myMembers={members} myMembersSetter={setMembers} />
-            </Box></>
+              id="groupinterface"
+            > 
+              <Typography sx={{fontSize: 30}}>GROUP</Typography>
+              <Box
+                sx={{
+                  m: 3,
+                  padding: 1,
+                  width: 250,
+                  height: 600,
+                  backgroundColor: "light.main",
+                  color: "primary.main"
+                }}
+              >
+                <Members myMembers={members} myMembersSetter={setMembers} />
+              </Box>
+
+            </Box>
+          </Box>
         :
-        <>
-          <p>Not Logged In</p>
-        </>
+        <Box 
+            sx={{
+            justifycontent: "center",
+            alignItems: 'center',
+            width: 1,
+            height: 800,
+            backgroundColor: "light.main",
+            color: "third.main"
+          }}
+        >
+          <Typography>Not Logged In</Typography>
+        </Box>
       }
-    </div>
+    </main>
   );
 }
