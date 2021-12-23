@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../src/theme/theme';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,7 +14,9 @@ ReactDOM.render(
       clientId="XUisvGpG6n4AYeybRH8FFgm3ljpKFj5s"
       redirectUri={window.location.origin}
     >
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')

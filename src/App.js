@@ -9,11 +9,9 @@ import theme from '../src/theme/theme'
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <Header />
-        <Main />
-        <Footer />
-      </ThemeProvider>
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }
