@@ -3,17 +3,28 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
 import Main from './components/main/Main'
 
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../src/theme/theme'
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <Header />
-      <Main />
+      <Main current={props} />
       <Footer />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    myGroups: state.mygroups,
+    user: state.user,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  getGroups: userID => dispatch({type: 'GET_GROUPS', payload: userID}),
+  getUser: email => dispatch({type: 'GET_USER', payload: email}),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

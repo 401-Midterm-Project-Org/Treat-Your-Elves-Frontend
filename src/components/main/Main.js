@@ -1,5 +1,5 @@
 import {useAuth0} from '@auth0/auth0-react';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Admin from '../main/Admin';
 import GroupInterface from './GroupInterface';
 import Members from './Members';
@@ -8,7 +8,7 @@ import HttpService from '../../services/httpService';
 import { Typography, Box } from "@mui/material";
 
 
-export default function Main() {
+export default function Main(props) {
   let dbUserModel = {id: 10, email: 'test@helloworld.com'};
   let groupIds = [1234, 56];
   let members = ['member1','member2'];
@@ -16,33 +16,32 @@ export default function Main() {
   const setMembers = (...m)  => [...members, ...m];
 
   const {user, isAuthenticated} = useAuth0();
-  /*
-  const [dbUserModel, setDbUserModel] = useState(async () =>
-    isAuthenticated
-      ? await HttpService.login(user.email, user.given_name, user.family_name)
-      : {});
-  const [groupIds, setGroupIds] = useState(async () =>
-    isAuthenticated
-      ? await HttpService.getUsersGroups(dbUserModel.id)
-      : [1234, 56]);
-  const [members, setMembers] = useState(async () =>
-    isAuthenticated
-      ? await HttpService.getGroupMembers([1234, 456])
-      : ['default1', 'default2']);
-   */
 
-  /*
-  setDbUserModel(async () => isAuthenticated && await HttpService.login(user.email, user.given_name, user.family_name));
-  setGroupIds(async () => isAuthenticated && await HttpService.getUsersGroups(dbUserModel.id));// groups on associations table
-  setMembers(async () => isAuthenticated && await HttpService.getGroupMembers([1234, 456])); // todo: need a group id for this to work
-  */
+  // const [dbUserModel, setDbUserModel] = useState(async () =>
+  // isAuthenticated
+  // ? await HttpService.login(user.email, user.given_name, user.family_name)
+  // : {});
+  // const [groupIds, setGroupIds] = useState(async () =>
+  // isAuthenticated
+  // ? await HttpService.getUsersGroups(dbUserModel.id)
+  // : [1234, 56]);
+  // const [members, setMembers] = useState(async () =>
+  // isAuthenticated
+  // ? await HttpService.getGroupMembers([1234, 456])
+  // : ['default1', 'default2']);
+ 
+ /*
+ setDbUserModel(async () => isAuthenticated && await HttpService.login(user.email, user.given_name, user.family_name));
+ setGroupIds(async () => isAuthenticated && await HttpService.getUsersGroups(dbUserModel.id));// groups on associations table
+ setMembers(async () => isAuthenticated && await HttpService.getGroupMembers([1234, 456])); // todo: need a group id for this to work
+ */
 
-  // --> id, email, firtName, lastName, createdAt, updatedAt
-  // todo: pass dbUserModel data through to the child components
+// --> id, email, firtName, lastName, createdAt, updatedAt
+// todo: pass dbUserModel data through to the child components
 
 
-  return (
-    <main>
+return (
+  <main>
       {
         isAuthenticated ?
           <Box id="maincontent"
