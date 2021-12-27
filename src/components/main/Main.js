@@ -22,41 +22,41 @@ export default function Main(props) {
   const [groupIds, setGroupIds] = useState([]);
   const [members, setMembers] = useState([]);
 
-  useEffect(() => {
-      if (isAuthenticated) {
-        HttpService
-          .login(user.email, user.given_name, user.family_name)
-          .error(_ => {
-            console.error(_);
-          })
-          .then(_ => {
-            // setDbUserModel(_);
-            // console.log(_);
-          });
-        /*
-        HttpService
-          // todo: need db group ids for this to work
-          .getGroupMembers([1234, 456])
-          .error(_ => {
-            console.error(_);
-          })
-          .then(_ => {
-            // setMembers(_);
-            // console.log(_);
-          });
-        HttpService
-          .getUsersGroups(user.email)
-          .error(_ => {
-            console.error(_);
-          })
-          .then(_ => {
-            // setGroupIds(_);
-            // console.log(_);
-          });
-      */
-      }
-    },
-    [isAuthenticated]);
+  // useEffect(() => {
+  //     if (isAuthenticated) {
+  //       // HttpService
+  //       //   .login(user.email, user.given_name, user.family_name)
+  //       //   .error(_ => {
+  //       //     console.error(_);
+  //       //   })
+  //       //   .then(_ => {
+  //       //     // setDbUserModel(_);
+  //       //     // console.log(_);
+  //       //   });
+  //       /*
+  //       HttpService
+  //         // todo: need db group ids for this to work
+  //         .getGroupMembers([1234, 456])
+  //         .error(_ => {
+  //           console.error(_);
+  //         })
+  //         .then(_ => {
+  //           // setMembers(_);
+  //           // console.log(_);
+  //         });
+  //         */
+  //    HttpService
+  //      .getUsersGroups(user.email)
+  //      .error(_ => {
+  //        console.error(_);
+  //      })
+  //      .then(_ => {
+  //        // setGroupIds(_);
+  //        // console.log(_);
+  //      });
+  //     }
+  //   },
+  //   [isAuthenticated]);
 
 
   return (
@@ -95,7 +95,7 @@ export default function Main(props) {
                   backgroundColor: 'primary.main',
                 }}
               >
-                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds}/>
+                <GroupInterface current={props} />
               </Box>
             </div>
             <Box

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 function App(props) {
   return (
     <div className="App">
-      <Header />
+      <Header current={props} />
       <Main current={props} />
       <Footer />
     </div>

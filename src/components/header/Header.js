@@ -12,7 +12,7 @@ import HeaderButtons from './HeaderButtons';
 
 
 
-export default function Header() {
+export default function Header(props) {
   return (
     <Box  sx={{ flexGrow: 1 }}>
       <AppBar position="static" >
@@ -30,7 +30,7 @@ export default function Header() {
             <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-elf-christmas-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" alt="logo"/>
             Treat Your Elves
           </Typography>
-          <HeaderButtons />
+          <HeaderButtons current={props} />
         </Toolbar>
       </AppBar>
     </Box>
