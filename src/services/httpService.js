@@ -21,18 +21,11 @@ class HttpService {
     } catch (error) {
       console.error(error)
     }
-      // .then(
-      //   result => result.data
-      // )
-      // .catch(
-      //   error => console.log('---ERROR---' + error)
-      // );
-
     // return {id: 10, email: 'test@helloworld.com'};
   }
 
 // logout
-  static logout({email}) {
+  static async logout({email}) {
     // todo: add logout mechanism with backend
 
     // hook into the frontend's login mechanism
@@ -40,7 +33,7 @@ class HttpService {
   }
 
 // delete group
-  static deleteGroup({groupId}) {
+  static async deleteGroup({groupId}) {
     //
   }
 
@@ -48,38 +41,21 @@ class HttpService {
 // Main component will have useState for user object that comes from the backend db
 // --> pass in the user.userId
 // groupID is returned from db on create
-  static createGroup(groupName, email) {
-    const response = axios.post(APP_URL + '/groups', {
+  static async createGroup(groupName, email) {
+    const {data} = await axios.post(APP_URL + '/groups', {
       groupName: groupName,
       groupAdminId: email,
-    })
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .data;
+    });
 
+    return data;
     // backend gives us a groupId
   }
 
 // get user's groups
   static async getUsersGroups(userId) {
-
     const ASSOCIATIONS_URL = `${APP_URL}/associations/${userId}`;
-
-    
-    const userAssociations = axios.get(ASSOCIATIONS_URL)
-    .then(function (response) {
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
-    .data;
-
-    return userAssociations;
+    const {data} = await axios.get(ASSOCIATIONS_URL);
+    return data;
   }
 
 // get group members
@@ -95,19 +71,7 @@ class HttpService {
     const GROUP_MEMBERS_URL = `${APP_URL}/groupmembers`;
     const USERS_URL = `${APP_URL}/${groupId}`;
 
-    /*
-    const response = axios.post(URL, obj)
-    .then(function (response) {
-        console.log('should be after api call');
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-
-    return response.data;
-    */
-    return ['member1', 'member2'];
+    return new Promise((resolve, reject) => resolve(['member1', 'member2']));
   }
 
 // add member to group

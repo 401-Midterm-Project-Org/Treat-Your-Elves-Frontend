@@ -1,59 +1,75 @@
 import {useAuth0} from '@auth0/auth0-react';
-import React, { useState } from 'react';
+import {Box, Typography} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+
+import HttpService from '../../services/httpService';
 import Admin from '../main/Admin';
 import GroupInterface from './GroupInterface';
 import Members from './Members';
 
-import HttpService from '../../services/httpService';
-import { Typography, Box } from "@mui/material";
 
 export default function Main(props) {
+  /*
   let dbUserModel = {id: 10, email: 'test@helloworld.com'};
   let groupIds = [1234, 56];
   let members = ['member1','member2'];
   const setGroupIds = (...ids) => [...groupIds, ...ids];
   const setMembers = (...m)  => [...members, ...m];
+  */
 
   const {user, isAuthenticated} = useAuth0();
+  // const [dbUserModel, setDbUserModel] = useState({});
+  const [groupIds, setGroupIds] = useState([]);
+  const [members, setMembers] = useState([]);
 
-  // if(user){
-  //   props.current.getGroups(user.email);
-  // }
+  useEffect(() => {
+      if (isAuthenticated) {
+        HttpService
+          .login(user.email, user.given_name, user.family_name)
+          .error(_ => {
+            console.error(_);
+          })
+          .then(_ => {
+            // setDbUserModel(_);
+            // console.log(_);
+          });
+        /*
+        HttpService
+          // todo: need db group ids for this to work
+          .getGroupMembers([1234, 456])
+          .error(_ => {
+            console.error(_);
+          })
+          .then(_ => {
+            // setMembers(_);
+            // console.log(_);
+          });
+        HttpService
+          .getUsersGroups(user.email)
+          .error(_ => {
+            console.error(_);
+          })
+          .then(_ => {
+            // setGroupIds(_);
+            // console.log(_);
+          });
+      */
+      }
+    },
+    [isAuthenticated]);
 
-  // const [dbUserModel, setDbUserModel] = useState(async () =>
-  // isAuthenticated
-  // ? await HttpService.login(user.email, user.given_name, user.family_name)
-  // : {});
-  // const [groupIds, setGroupIds] = useState(async () =>
-  // isAuthenticated
-  // ? await HttpService.getUsersGroups(dbUserModel.id)
-  // : [1234, 56]);
-  // const [members, setMembers] = useState(async () =>
-  // isAuthenticated
-  // ? await HttpService.getGroupMembers([1234, 456])
-  // : ['default1', 'default2']);
- 
-  /*
- setDbUserModel(async () => isAuthenticated && await HttpService.login(user.email, user.given_name, user.family_name));
- setGroupIds(async () => isAuthenticated && await HttpService.getUsersGroups(dbUserModel.id));// groups on associations table
- setMembers(async () => isAuthenticated && await HttpService.getGroupMembers([1234, 456])); // todo: need a group id for this to work
- */
 
-// --> id, email, firtName, lastName, createdAt, updatedAt
-// todo: pass dbUserModel data through to the child components
-
-
-return (
-  <main>
+  return (
+    <main>
       {
         isAuthenticated ?
           <Box id="maincontent"
                sx={{
-                 justifycontent: "center",
+                 justifycontent: 'center',
                  width: 1,
                  height: 1,
-                 backgroundColor: "light.main",
-                 color: "secondary.main",
+                 backgroundColor: 'light.main',
+                 color: 'secondary.main',
                  m: 1,
                }}
           >
@@ -64,11 +80,11 @@ return (
                   padding: 1,
                   width: 250,
                   height: 150,
-                  backgroundColor: "primary.main",
+                  backgroundColor: 'primary.main',
                   fontSize: 12,
                 }}
               >
-                <Admin />
+                <Admin/>
               </Box>
               <Box
                 sx={{
@@ -76,15 +92,15 @@ return (
                   padding: 1,
                   width: 250,
                   height: 1,
-                  backgroundColor: "primary.main",
+                  backgroundColor: 'primary.main',
                 }}
               >
-                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds} />
+                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds}/>
               </Box>
             </div>
             <Box
               sx={{
-                backgroundColor: "third.main",
+                backgroundColor: 'third.main',
                 height: 1,
                 width: 1,
               }}
@@ -97,11 +113,11 @@ return (
                   padding: 1,
                   width: 250,
                   height: 600,
-                  backgroundColor: "light.main",
-                  color: "primary.main"
+                  backgroundColor: 'light.main',
+                  color: 'primary.main'
                 }}
               >
-                <Members myMembers={members} myMembersSetter={setMembers} />
+                <Members myMembers={members} myMembersSetter={setMembers}/>
               </Box>
 
             </Box>
@@ -109,12 +125,12 @@ return (
           :
           <Box
             sx={{
-              justifycontent: "center",
+              justifycontent: 'center',
               alignItems: 'center',
               width: 1,
               height: 800,
-              backgroundColor: "light.main",
-              color: "third.main"
+              backgroundColor: 'light.main',
+              color: 'third.main'
             }}
           >
             <Typography>Not Logged In</Typography>
