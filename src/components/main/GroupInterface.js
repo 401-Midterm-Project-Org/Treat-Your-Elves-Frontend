@@ -10,13 +10,15 @@ import HttpService from '../../services/httpService';
 
 
 
-export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
+export default function GroupInterface(props) {
   // TODO: This component will be a MUI pop-out drawer
 
   // groupName, groupAdminId
   const [groupName, setGroupName] = useState('default');
 
   const { user } = useAuth0();
+
+  console.log(props.current.current);
 
   return (
     <>
@@ -31,10 +33,10 @@ export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
         </FormGroup>
       <List>
         {
-          myGroups.map(groupId => (
-            <ListItem key={groupId} disablePadding>
+          props.current.current.myGroups.groups.map(association => (
+            <ListItem key={association.groupAdminId} disablePadding>
               <ListItemButton>
-                <ListItemText primary={groupId}/>
+                <ListItemText primary={association.groupName}/>
               </ListItemButton>
             </ListItem>
           ))

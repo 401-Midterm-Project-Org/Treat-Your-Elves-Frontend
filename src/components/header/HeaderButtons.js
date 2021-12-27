@@ -27,13 +27,18 @@ const style = {
   alignitems: 'center',
 };
 
-export default function HeaderButtons() {
+export default function HeaderButtons(props) {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  function doLogin(){
+    loginWithRedirect();
+    props.current.current.getGroups(user.email);
+  }
   
   return (
     <>
@@ -43,7 +48,7 @@ export default function HeaderButtons() {
         <Button color="secondary" onClick={() => logout({ returnTo: window.location.origin })}><LogoutTwoToneIcon />LOGOUT</Button>
       </>
       : 
-        <Button color="secondary" onClick={() => loginWithRedirect()}><LoginTwoToneIcon />LOGIN</Button>
+        <Button color="secondary" onClick={() => doLogin()}><LoginTwoToneIcon />LOGIN</Button>
       }
       
       <Modal

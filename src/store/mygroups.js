@@ -8,16 +8,19 @@ let initialState= {
   ],
 };
 
-async function myGroupsReducer(state = initialState, action) {
+function myGroupsReducer(state = initialState, action) {
 
   let { type, payload } = action;
 
   switch(type) {
     case 'GET_GROUPS':
       
-      let groups = await axios.get(`${APP_URL}/associations/${payload}`);
+    let groups;
+    axios.get(`${APP_URL}/associations/${payload}`).then(data => {
+      console.log(data);
+      groups = data;
+    });
 
-      console.log(groups);
       
       return { groups }
 
