@@ -35,9 +35,11 @@ export default function HeaderButtons(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  function doLogin(){
+  console.log(props.current.current);
+
+  function doLoginStuff(){
     loginWithRedirect();
-    props.current.current.getGroups(user.email);
+    // props.current.current.getGroups(user.email);
   }
   
   return (
@@ -48,7 +50,7 @@ export default function HeaderButtons(props) {
         <Button color="secondary" onClick={() => logout({ returnTo: window.location.origin })}><LogoutTwoToneIcon />LOGOUT</Button>
       </>
       : 
-        <Button color="secondary" onClick={() => doLogin()}><LoginTwoToneIcon />LOGIN</Button>
+        <Button color="secondary" onClick={() => doLoginStuff()}><LoginTwoToneIcon />LOGIN</Button>
       }
       
       <Modal

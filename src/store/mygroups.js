@@ -15,14 +15,10 @@ function myGroupsReducer(state = initialState, action) {
   switch(type) {
     case 'GET_GROUPS':
       
-    let groups;
-    axios.get(`${APP_URL}/associations/${payload}`).then(data => {
-      console.log(data);
-      groups = data;
+    return axios.get(`${APP_URL}/associations/${payload}`).then(response => {
+      console.log(response.data);
+      return { groups: response.data };
     });
-
-      
-      return { groups }
 
     default:
       return state;

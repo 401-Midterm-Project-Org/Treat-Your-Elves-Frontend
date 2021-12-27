@@ -22,7 +22,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getGroups: userID => dispatch({type: 'GET_GROUPS', payload: userID}),
+  getGroups: email => dispatch({type: 'GET_GROUPS', payload: email}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -18,9 +18,11 @@ export default function Main(props) {
   */
 
   const {user, isAuthenticated} = useAuth0();
+  let members;
+  let setMembers;
   // const [dbUserModel, setDbUserModel] = useState({});
-  const [groupIds, setGroupIds] = useState([]);
-  const [members, setMembers] = useState([]);
+  // const [groupIds, setGroupIds] = useState([]);
+  // const [members, setMembers] = useState([]);
 
   // useEffect(() => {
   //     if (isAuthenticated) {

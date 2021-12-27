@@ -14,12 +14,18 @@ export default function GroupInterface(props) {
   // TODO: This component will be a MUI pop-out drawer
 
   // groupName, groupAdminId
-  const [groupName, setGroupName] = useState('default');
+  // const [groupName, setGroupName] = useState('default');
 
   const { user } = useAuth0();
 
-  console.log(props.current.current);
+  function setGroupName(e){
 
+  }
+
+  let groupName = '';
+  props.current.current.getGroups(user.email);
+  console.log('group interface: ',props.current.current.myGroups);
+  
   return (
     <>
       <Typography variant="h4" component="div">My Groups</Typography>
@@ -32,7 +38,8 @@ export default function GroupInterface(props) {
           <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
         </FormGroup>
       <List>
-        {
+      <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
+        {/* {
           props.current.current.myGroups.groups.map(association => (
             <ListItem key={association.groupAdminId} disablePadding>
               <ListItemButton>
@@ -40,7 +47,7 @@ export default function GroupInterface(props) {
               </ListItemButton>
             </ListItem>
           ))
-        }
+        } */}
       </List>
     </>
   );
