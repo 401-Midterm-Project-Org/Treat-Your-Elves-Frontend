@@ -7,7 +7,6 @@ import Members from './Members';
 import HttpService from '../../services/httpService';
 import { Typography, Box } from "@mui/material";
 
-
 export default function Main(props) {
   let dbUserModel = {id: 10, email: 'test@helloworld.com'};
   let groupIds = [1234, 56];
@@ -16,6 +15,10 @@ export default function Main(props) {
   const setMembers = (...m)  => [...members, ...m];
 
   const {user, isAuthenticated} = useAuth0();
+
+  // if(user){
+  //   props.current.getGroups(user.email);
+  // }
 
   // const [dbUserModel, setDbUserModel] = useState(async () =>
   // isAuthenticated
@@ -30,7 +33,7 @@ export default function Main(props) {
   // ? await HttpService.getGroupMembers([1234, 456])
   // : ['default1', 'default2']);
  
- /*
+  /*
  setDbUserModel(async () => isAuthenticated && await HttpService.login(user.email, user.given_name, user.family_name));
  setGroupIds(async () => isAuthenticated && await HttpService.getUsersGroups(dbUserModel.id));// groups on associations table
  setMembers(async () => isAuthenticated && await HttpService.getGroupMembers([1234, 456])); // todo: need a group id for this to work
@@ -76,7 +79,7 @@ return (
                   backgroundColor: "primary.main",
                 }}
               >
-                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds} groupAdminId={dbUserModel.id}/>
+                <GroupInterface myGroups={groupIds} groupsSetter={setGroupIds} />
               </Box>
             </div>
             <Box

@@ -48,10 +48,10 @@ class HttpService {
 // Main component will have useState for user object that comes from the backend db
 // --> pass in the user.userId
 // groupID is returned from db on create
-  static createGroup(groupName, groupAdminId) {
+  static createGroup(groupName, email) {
     const response = axios.post(APP_URL + '/groups', {
-      groupName,
-      groupAdminId
+      groupName: groupName,
+      groupAdminId: email,
     })
       .then(function (response) {
         console.log(response.data);
@@ -61,16 +61,15 @@ class HttpService {
       })
       .data;
 
-    // make the group on backend
     // backend gives us a groupId
-    return response.groupID;
   }
 
 // get user's groups
   static async getUsersGroups(userId) {
 
-    const ASSOCIATIONS_URL = `${APP_URL}/associations/${userId}`; // all of the user's associations
-    /*
+    const ASSOCIATIONS_URL = `${APP_URL}/associations/${userId}`;
+
+    
     const userAssociations = axios.get(ASSOCIATIONS_URL)
     .then(function (response) {
         console.log(response.data);
@@ -78,22 +77,9 @@ class HttpService {
     .catch(function (error) {
         console.log(error);
     })
-    .data; // data is --> userId, groupId, role
-    */
+    .data;
 
-    // const URL = APP_URL + '/groups';
-
-    // const response = axios.get(URL, obj)
-    // .then(function (response) {
-    //     console.log('should be after api call');
-    //     console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // });
-
-    // return response.data;
-    return [1234, 56];
+    return userAssociations;
   }
 
 // get group members

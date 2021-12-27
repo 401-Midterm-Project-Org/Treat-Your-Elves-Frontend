@@ -5,16 +5,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import * as React from 'react';
 import { useState } from "react";
-
 import { useAuth0 } from "@auth0/auth0-react";
-
 import HttpService from '../../services/httpService';
+
+
 
 export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
   // TODO: This component will be a MUI pop-out drawer
 
   // groupName, groupAdminId
   const [groupName, setGroupName] = useState('default');
+
+  const { user } = useAuth0();
 
   return (
     <>
@@ -25,7 +27,7 @@ export default function GroupInterface({myGroups, groupAdminId, groupsSetter}) {
             <Input onChange={event => setGroupName(event.target.value)} id="my-input" aria-describedby="my-helper-text" />
             <FormHelperText id="my-helper-text">eg. My Amazing Group</FormHelperText>
           </FormControl>
-          <Button variant="contained" onClick={() => groupsSetter(groupName)}>+ Create Group</Button>
+          <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
         </FormGroup>
       <List>
         {

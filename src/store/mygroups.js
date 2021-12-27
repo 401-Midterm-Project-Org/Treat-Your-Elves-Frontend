@@ -4,7 +4,7 @@ const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 
 let initialState= {
   groups: [
-    { groupName: 'no Groups', groupAdminId: null },
+    { groupName: 'no Groups', groupAdminId: 'none' },
   ],
 };
 
@@ -15,9 +15,11 @@ async function myGroupsReducer(state = initialState, action) {
   switch(type) {
     case 'GET_GROUPS':
       
-      let myGroups = await axios.get(`${APP_URL}/groups/${payload}`);
+      let groups = await axios.get(`${APP_URL}/associations/${payload}`);
+
+      console.log(groups);
       
-      return { myGroups }
+      return { groups }
 
     default:
       return state;

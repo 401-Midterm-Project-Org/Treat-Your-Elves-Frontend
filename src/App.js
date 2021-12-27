@@ -18,13 +18,11 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     myGroups: state.mygroups,
-    user: state.user,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getGroups: userID => dispatch({type: 'GET_GROUPS', payload: userID}),
-  getUser: email => dispatch({type: 'GET_USER', payload: email}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
