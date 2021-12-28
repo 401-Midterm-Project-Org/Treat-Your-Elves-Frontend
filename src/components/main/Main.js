@@ -107,7 +107,6 @@ export default function Main() {
               color: "third.main",
             }}
             >
-            <Typography>Not Logged In</Typography>
           </Box> */}
         </>
       }
