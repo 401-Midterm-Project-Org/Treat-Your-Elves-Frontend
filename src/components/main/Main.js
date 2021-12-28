@@ -1,66 +1,11 @@
 import {Box, Typography} from '@mui/material';
-import React, {useEffect, useState} from 'react';
-
-import HttpService from '../../services/httpService';
+import React from 'react';
 import Admin from '../main/Admin';
 import GroupInterface from './GroupInterface';
 import Members from './Members';
 
 
-export default function Main(props) {
-
-  console.log(props.current.myGroups);
-  /*
-  let dbUserModel = {id: 10, email: 'test@helloworld.com'};
-  let groupIds = [1234, 56];
-  let members = ['member1','member2'];
-  const setGroupIds = (...ids) => [...groupIds, ...ids];
-  const setMembers = (...m)  => [...members, ...m];
-  */
-
-  let members;
-  let setMembers;
-  // const [dbUserModel, setDbUserModel] = useState({});
-  // const [groupIds, setGroupIds] = useState([]);
-  // const [members, setMembers] = useState([]);
-
-  // useEffect(() => {
-  //     if (isAuthenticated) {
-  //       // HttpService
-  //       //   .login(user.email, user.given_name, user.family_name)
-  //       //   .error(_ => {
-  //       //     console.error(_);
-  //       //   })
-  //       //   .then(_ => {
-  //       //     // setDbUserModel(_);
-  //       //     // console.log(_);
-  //       //   });
-  //       /*
-  //       HttpService
-  //         // todo: need db group ids for this to work
-  //         .getGroupMembers([1234, 456])
-  //         .error(_ => {
-  //           console.error(_);
-  //         })
-  //         .then(_ => {
-  //           // setMembers(_);
-  //           // console.log(_);
-  //         });
-  //         */
-  //    HttpService
-  //      .getUsersGroups(user.email)
-  //      .error(_ => {
-  //        console.error(_);
-  //      })
-  //      .then(_ => {
-  //        // setGroupIds(_);
-  //        // console.log(_);
-  //      });
-  //     }
-  //   },
-  //   [isAuthenticated]);
-
-
+export default function Main() {
   return (
     <main>
       {
@@ -97,7 +42,7 @@ export default function Main(props) {
                   backgroundColor: 'primary.main',
                 }}
               >
-                <GroupInterface current={props} />
+                <GroupInterface/>
               </Box>
             </div>
             <Box
@@ -119,9 +64,8 @@ export default function Main(props) {
                   color: 'primary.main'
                 }}
               >
-                <Members myMembers={members} myMembersSetter={setMembers}/>
+                <Members/>
               </Box>
-
             </Box>
           </Box>
           <Box
@@ -136,7 +80,7 @@ export default function Main(props) {
           >
             <Typography>Not Logged In</Typography>
           </Box>
-          </>
+        </>
       }
     </main>
   );
