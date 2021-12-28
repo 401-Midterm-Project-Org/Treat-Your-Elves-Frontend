@@ -40,7 +40,7 @@ export default function GroupInterface(props) {
         </FormGroup>
       <List>
       <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
-        {
+        {/* {
           props.myGroups.map(association => (
             <ListItem key={association.groupAdminId} disablePadding>
               <ListItemButton>
@@ -48,7 +48,7 @@ export default function GroupInterface(props) {
               </ListItemButton>
             </ListItem>
           ))
-        }
+        } */}
       </List>
     </>
   );
