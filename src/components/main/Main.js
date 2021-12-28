@@ -31,19 +31,6 @@ export default function Main() {
               p: 2,
             }}
           >
-            <div id="toolbar">
-              <Box
-                sx={{
-                  m: 1,
-                  padding: 1,
-                  width: 250,
-                  height: 1,
-                  backgroundColor: "primary.main",
-                }}
-                >
-                <GroupInterface />
-              </Box>
-            </div>
             <Box
               sx={{
                 backgroundColor: "third.main",
