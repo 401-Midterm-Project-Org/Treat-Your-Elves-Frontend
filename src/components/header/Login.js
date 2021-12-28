@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
       handleClose();
 
       dispatch({
-        type: 'LOGIN',
+        type: 'USER_LOGIN',
         payload: {
           isLoggedIn: true,
           username: username,
