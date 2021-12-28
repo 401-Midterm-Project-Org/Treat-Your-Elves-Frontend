@@ -1,6 +1,7 @@
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {Box, Button, FormControl, FormGroup, FormHelperText, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
+import {connect} from 'react-redux';
 import HttpService from '../../services/httpService';
 
 
@@ -16,7 +17,32 @@ const style = {
   p: 4,
 };
 
-export default function Register() {
+const mapStateToProps = (state) => ({
+  // todo: need any state dependency?
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  register: async (name, username, password, handleClose) => {
+    const result = await HttpService.register(username, name, password);
+    console.log(result);
+
+    if (result.status === 201) {
+      handleClose();
+
+      dispatch({
+        type: 'USER_REGISTERED',
+        payload: {
+          isLoggedIn: true,
+          userName: username,
+          token: result.data.token,
+          id: result.data.user.id,
+        },
+      });
+    }
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Register({register}) {
 
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
@@ -25,7 +51,7 @@ export default function Register() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleRegister = () => {
-    HttpService.register(username, name, password);
+    register(name, username, password, handleClose);
   };
 
   return (
@@ -66,4 +92,4 @@ export default function Register() {
       </Modal>
     </>
   );
-}
+});
