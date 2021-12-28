@@ -1,21 +1,14 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import {combineReducers, createStore} from 'redux';
+import myGroupsReducer from './reducers/myGroupsReducer.js';
+// import groupMemberReducer from './reducers/groupMembersReducer.js'
+// import wishlistReducer from './reducers/wishlistReducer.js';
 
-import myGroupsReducer from './mygroups.js';
-import groupMemberReducer from './groupmembers.js'
-import wishlistReducer from './wishlist.js';
-
-let reducers = combineReducers({
-  mygroups: myGroupsReducer,
-  members: groupMemberReducer,
-  wishlist: wishlistReducer
+const reducers = combineReducers({
+  myGroups: myGroupsReducer,
+  // members: groupMemberReducer,
+  // wishlist: wishlistReducer
 });
 
-
-const middleware = applyMiddleware(thunk);
-
-const store = () => {
-  return createStore(reducers, middleware);
-}
+const store = () => createStore(reducers);
 
 export default store;
