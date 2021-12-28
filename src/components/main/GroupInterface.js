@@ -7,7 +7,8 @@ import * as React from 'react';
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
-
+import { connect } from 'react-redux';
+import getGroups from '../../store/actions/groups';
 
 
 export default function GroupInterface(props) {
@@ -16,15 +17,15 @@ export default function GroupInterface(props) {
   // groupName, groupAdminId
   // const [groupName, setGroupName] = useState('default');
 
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   function setGroupName(e){
 
   }
 
   let groupName = '';
-  props.current.current.getGroups(user.email);
-  console.log('group interface: ',props.current.current.myGroups);
+
+  console.log(props.myGroups);
   
   return (
     <>
@@ -39,15 +40,15 @@ export default function GroupInterface(props) {
         </FormGroup>
       <List>
       <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
-        {/* {
-          props.current.current.myGroups.groups.map(association => (
+        {
+          props.myGroups.map(association => (
             <ListItem key={association.groupAdminId} disablePadding>
               <ListItemButton>
                 <ListItemText primary={association.groupName}/>
               </ListItemButton>
             </ListItem>
           ))
-        } */}
+        }
       </List>
     </>
   );

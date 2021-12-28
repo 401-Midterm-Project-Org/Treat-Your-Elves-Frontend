@@ -11,6 +11,7 @@ let reducers = combineReducers({
   wishlist: wishlistReducer
 });
 
+
 const middleware = applyMiddleware(thunk);
 
 const store = () => {

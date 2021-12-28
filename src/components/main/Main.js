@@ -9,6 +9,8 @@ import Members from './Members';
 
 
 export default function Main(props) {
+
+  console.log(props.current.myGroups);
   /*
   let dbUserModel = {id: 10, email: 'test@helloworld.com'};
   let groupIds = [1234, 56];
