@@ -2,19 +2,18 @@ const initialState = {
   isLoggedIn: false,
   username: null,
   token: null,
+  id: null,
 };
 
 function userReducer(state = initialState, action) {
   const {type, payload} = action;
 
   switch (type) {
-    case 'LOGIN':
+    case 'USER_LOGIN':
+    case 'USER_LOGOUT':
+    case 'USER_REGISTERED':
       console.log(payload);
-      return {
-        isLoggedIn: true,
-        userName: payload.username,
-        token: payload.token,
-      };
+      return payload;
     default:
       return state;
   }

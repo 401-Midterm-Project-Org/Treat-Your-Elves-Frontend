@@ -18,7 +18,6 @@ const style = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,12 +28,12 @@ const mapDispatchToProps = (dispatch) => ({
       handleClose();
 
       dispatch({
-        type: 'LOGIN',
+        type: 'USER_LOGIN',
         payload: {
           isLoggedIn: true,
           username: username,
           token: result.data.token,
-          id: result.data.user.id
+          id: result.data.user.id,
         },
       });
     }
