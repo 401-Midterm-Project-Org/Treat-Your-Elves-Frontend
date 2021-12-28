@@ -24,7 +24,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   register: async (name, username, password, email, handleClose) => {
     const result = await HttpService.register(username, name, password, email);
-    console.log(result);
+
+    // todo: get isAdministrator from backend, for now it's hardcoded all admins
+    console.log(result.data);
 
     if (result.status === 201) {
       handleClose();
@@ -33,6 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'USER_REGISTERED',
         payload: {
           isLoggedIn: true,
+          isAdministrator: true,
           username: username,
           token: result.data.token,
           id: result.data.user.id,
