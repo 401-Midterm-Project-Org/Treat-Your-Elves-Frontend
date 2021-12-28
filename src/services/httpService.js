@@ -185,7 +185,7 @@ class HttpService {
   }
 
 // update a wishlist item
-  static async updateItem(newItem, wishlistid, associationsId){
+  static async updateItem(newItem, wishlistid, associationsId, token){
     try{
       const result = await axios({
         method: 'put',
@@ -205,7 +205,7 @@ class HttpService {
   }
 
 // create secret santa pairing
-  static async createPairs(groupid){
+  static async createPairs(groupid, token){
     try{
       await axios({
         method: 'post',
