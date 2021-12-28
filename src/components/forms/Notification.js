@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import {Button, Checkbox, Dialog, DialogActions, DialogTitle, FormControl, FormControlLabel} from '@mui/material';
+import {useState} from 'react';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { 
-  Button, 
-  Dialog, 
-  DialogTitle, 
-  DialogActions, 
-  FormControl, 
-  FormControlLabel,
-  Checkbox} 
-  from '@mui/material';
+
 
 const Notification = () => {
 
   const notify = () => toast('🎇 Your alert Has been sent! 🎇');
-  const [openNotifs, setOpenNotifs] = React.useState(false);
+  const [openNotifs, setOpenNotifs] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,33 +15,37 @@ const Notification = () => {
 
   const handleOpenNotifs = () => {
     setOpenNotifs(true);
-  }
+  };
 
   const handleCloseNotifs = () => {
-    setOpenNotifs(false)
-  }
+    setOpenNotifs(false);
+  };
 
-    return (
-      <>
-      <Button onClick={handleOpenNotifs}variant="contained"
-      sx={{
-        display: 'inline-grid'
-      }}>Notifications</Button>
+  return (
+    <>
+      <Button onClick={handleOpenNotifs} variant="contained"
+              sx={{
+                display: 'inline-grid'
+              }}>Notifications</Button>
 
       <Dialog open={openNotifs} onClose={handleCloseNotifs}>
         <DialogTitle>Send Notification</DialogTitle>
         <FormControl>
-          <FormControlLabel control={<Checkbox />} label="Thirty days until Party!!!" />
+          <FormControlLabel control={<Checkbox/>} label="Thirty days until Party!!!"/>
         </FormControl>
         <DialogActions>
-          <Button onClick={ () => {notify(); handleCloseNotifs(); handleSubmit()}}>Send</Button>
+          <Button onClick={() => {
+            notify();
+            handleCloseNotifs();
+            handleSubmit();
+          }}>Send</Button>
           <Button onClick={handleCloseNotifs}>Cancel</Button>
         </DialogActions>
-      </Dialog>      
+      </Dialog>
 
       <ToastContainer/>
-      </>
-    );
-}
+    </>
+  );
+};
 
-export default Notification
+export default Notification;
