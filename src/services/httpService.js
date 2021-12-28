@@ -13,9 +13,7 @@ class HttpService {
     };
 
     try {
-      const {data} = await axios.post(`${APP_URL}/signup`, obj);
-      console.log(data)
-      return data;
+      return await axios.post(`${APP_URL}/signup`, obj);
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +58,7 @@ class HttpService {
       new Error(`couldn't create group... ${e}`);
     }
   }
-  
+
   static async deleteGroup(groupId, token) {
     try{
       await axios({
