@@ -1,5 +1,7 @@
 const initialState = {
   isLoading: false,
+  email: null,
+  picture: null,
 };
 
 function userProfileReducer(state = initialState, action) {
