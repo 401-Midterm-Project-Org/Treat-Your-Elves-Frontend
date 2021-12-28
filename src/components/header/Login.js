@@ -17,13 +17,15 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = (state) => ({
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   login: async (username, password, handleClose) => {
     const result = await HttpService.login(username, password);
+
+    // todo: get isAdministrator from backend, for now it's hardcoded all admins
     console.log(result.data);
+
     if (result.status === 200) {
       handleClose();
 
@@ -31,6 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'USER_LOGIN',
         payload: {
           isLoggedIn: true,
+          isAdministrator: true,
           username: username,
           token: result.data.token,
           id: result.data.user.id,
