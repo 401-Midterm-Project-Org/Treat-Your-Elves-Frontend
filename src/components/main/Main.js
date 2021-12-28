@@ -1,4 +1,3 @@
-import {useAuth0} from '@auth0/auth0-react';
 import {Box, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 
@@ -19,7 +18,6 @@ export default function Main(props) {
   const setMembers = (...m)  => [...members, ...m];
   */
 
-  const {user, isAuthenticated} = useAuth0();
   let members;
   let setMembers;
   // const [dbUserModel, setDbUserModel] = useState({});
@@ -66,7 +64,7 @@ export default function Main(props) {
   return (
     <main>
       {
-        isAuthenticated ?
+        <>
           <Box id="maincontent"
                sx={{
                  justifycontent: 'center',
@@ -126,7 +124,6 @@ export default function Main(props) {
 
             </Box>
           </Box>
-          :
           <Box
             sx={{
               justifycontent: 'center',
@@ -139,6 +136,7 @@ export default function Main(props) {
           >
             <Typography>Not Logged In</Typography>
           </Box>
+          </>
       }
     </main>
   );

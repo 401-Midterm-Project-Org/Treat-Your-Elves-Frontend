@@ -24,18 +24,19 @@ const style = {
   p: 4,
 };
 
-export default function Login(props) {
+export default function Register(props) {
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   
+  // console.log(username)
   return (
     <>
-    <Button color="secondary" onClick={handleOpen}><LoginTwoToneIcon />LOGIN</Button>
+    <Button color="secondary" onClick={handleOpen}><LoginTwoToneIcon />REGISTER</Button>
     <Modal
     open={open}
     onClose={handleClose}
@@ -45,7 +46,12 @@ export default function Login(props) {
       <FormControl>
         <InputLabel htmlFor="my-input">User Name</InputLabel>
         <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setUsername(e.target.value)}}/>
-        <FormHelperText id="my-helper-text">eg. your email</FormHelperText>
+        <FormHelperText id="my-helper-text">eg. JohnSmith</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor="my-input">Name</InputLabel>
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setName(e.target.value)}}/>
+        <FormHelperText id="my-helper-text">eg. John Smith</FormHelperText>
       </FormControl>
       <FormControl>
         <InputLabel htmlFor="my-input">Password</InputLabel>
@@ -54,8 +60,7 @@ export default function Login(props) {
           We'll never share your password.
         </FormHelperText>
       </FormControl>
-      <Button onClick={() => HttpService.login(username, password)}>Login</Button>
-      <p>Don't have an account? Register!</p>
+      <Button onClick={() => HttpService.register(username, name, password)} >Register</Button>
     </FormGroup>
     </Box>
     </Modal>

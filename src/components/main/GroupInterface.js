@@ -5,7 +5,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import * as React from 'react';
 import { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
 import { connect } from 'react-redux';
 import getGroups from '../../store/actions/groups';
@@ -17,13 +16,12 @@ export default function GroupInterface(props) {
   // groupName, groupAdminId
   // const [groupName, setGroupName] = useState('default');
 
-  const { user, isAuthenticated } = useAuth0();
-
   function setGroupName(e){
 
   }
 
   let groupName = '';
+  let email = '';
 
   console.log(props.myGroups);
   
@@ -36,10 +34,10 @@ export default function GroupInterface(props) {
             <Input onChange={event => setGroupName(event.target.value)} id="my-input" aria-describedby="my-helper-text" />
             <FormHelperText id="my-helper-text">eg. My Amazing Group</FormHelperText>
           </FormControl>
-          <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
+          <Button variant="contained" onClick={() => HttpService.createGroup(groupName, email)} >+ Create Group</Button>
         </FormGroup>
       <List>
-      <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
+      <Button variant="contained" onClick={() => HttpService.createGroup(groupName, email)} >+ Create Group</Button>
         {/* {
           props.myGroups.map(association => (
             <ListItem key={association.groupAdminId} disablePadding>

@@ -3,7 +3,6 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
 import Main from './components/main/Main'
 import getGroups from './store/actions/groups';
-import {useAuth0} from '@auth0/auth0-react';
 
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
@@ -11,8 +10,6 @@ import { useEffect } from 'react';
 
 
 function App(props) {
-
-  const { user, isAuthenticated } = useAuth0();
   
   useEffect(() => {
       props.getGroups('justin.hamerly@gmail.com');
