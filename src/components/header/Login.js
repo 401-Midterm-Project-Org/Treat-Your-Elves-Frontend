@@ -62,24 +62,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
       >
         <Box sx={style}>
           <FormGroup>
-            <FormControl>
+            <FormControl sx={{my: 2}}>
               <InputLabel htmlFor="my-input">User Name</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setUsername(e.target.value);
               }}/>
-              <FormHelperText id="my-helper-text">eg. your email</FormHelperText>
             </FormControl>
-            <FormControl>
+            <FormControl sx={{my: 2}} >
               <InputLabel htmlFor="my-input">Password</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setPassword(e.target.value);
               }}/>
-              <FormHelperText id="my-helper-text">
-                We'll never share your password.
-              </FormHelperText>
             </FormControl>
-            <Button onClick={handleLogin}>Login</Button>
-            <p>Don't have an account? Register!</p>
+            <Button sx={{my: 2}} variant="contained" onClick={handleLogin}>Login</Button>
+            {/* <p>Don't have an account? Register!</p> */}
           </FormGroup>
         </Box>
       </Modal>

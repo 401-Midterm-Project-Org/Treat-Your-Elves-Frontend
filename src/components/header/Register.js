@@ -65,15 +65,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
         <Box sx={style}>
           <FormGroup >
             <FormControl sx={{my: 2}} >
-              <InputLabel htmlFor="my-input">username</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
-                setUsername(e.target.value);
-              }}/>
-            </FormControl>
-            <FormControl sx={{my: 2}} >
               <InputLabel htmlFor="my-input">your name</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setName(e.target.value);
+              }}/>
+            </FormControl>
+            <FormControl sx={{my: 2}} >
+              <InputLabel htmlFor="my-input">username</InputLabel>
+              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+                setUsername(e.target.value);
               }}/>
             </FormControl>
             <FormControl sx={{my: 2}} >
