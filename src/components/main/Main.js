@@ -1,11 +1,20 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
+import Image from "../../theme/snowing.gif"
 import React from "react";
 import Admin from "../main/Admin";
 import GroupInterface from "./GroupInterface";
 import Members from "./Members";
 import Recipient from "./Recipient"
 
+
 export default function Main() {
+  const styles = {
+    paperContainer: {
+      backgroundImage: `url(${Image})`,
+      width:1605,
+      height:740,
+    }
+  }
   return (
     <main>
       {
@@ -31,7 +40,7 @@ export default function Main() {
                   height: 1,
                   backgroundColor: "primary.main",
                 }}
-              >
+                >
                 <GroupInterface />
               </Box>
             </div>
@@ -42,8 +51,9 @@ export default function Main() {
                 width: 1,
               }}
               id="groupinterface"
-            >
+              >
               <Typography sx={{ fontSize: 30 }}>GROUP</Typography>
+              <Paper style={styles.paperContainer}>
               <Box
                 sx={{
                   m: 3,
@@ -53,7 +63,7 @@ export default function Main() {
                   backgroundColor: "light.main",
                   color: "primary.main",
                 }}
-              >
+                >
                 <Members />
                 <Box
                   sx={{
@@ -64,14 +74,15 @@ export default function Main() {
                     backgroundColor: "light.main",
                     fontSize: 12,
                     color: "black",
-
+                    
                   }}
-                >
+                  >
                   <Admin />
                 </Box>
                   <Box
                   sx={{
                     ml:130,
+                    mt:30,
                     padding: 1,
                     width: 450,
                     height: 160,
@@ -79,10 +90,11 @@ export default function Main() {
                     fontSize: 12,
                     color: "white",
                   }}
-                >
+                  >
                   <Recipient />
                 </Box>
               </Box>
+          </Paper>
             </Box>
           </Box>
           {/* <Box
@@ -94,7 +106,7 @@ export default function Main() {
               backgroundColor: "light.main",
               color: "third.main",
             }}
-          >
+            >
             <Typography>Not Logged In</Typography>
           </Box> */}
         </>
