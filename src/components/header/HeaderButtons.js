@@ -2,6 +2,7 @@ import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import {Box, Button, Modal,} from '@mui/material';
 import {useState} from 'react';
+import {connect} from 'react-redux';
 import Login from './Login';
 import Profile from './Profile';
 import Register from './Register';
@@ -20,7 +21,11 @@ const style = {
   alignitems: 'center',
 };
 
-export default function HeaderButtons({isLoggedIn}) {
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(function HeaderButtons({isLoggedIn}) {
 
   const [open, setOpen] = useState(false);
 
@@ -54,4 +59,4 @@ export default function HeaderButtons({isLoggedIn}) {
       </Modal>
     </>
   );
-}
+});
