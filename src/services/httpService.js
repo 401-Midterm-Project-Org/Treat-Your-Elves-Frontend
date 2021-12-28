@@ -27,28 +27,17 @@ class HttpService {
 
 //login
   static async login(username, password) {
-
-    const obj = {
-      username,
-      password
-    };
-
     const URL = `${APP_URL}/signin`;
 
     try {
-      const {data} = await axios({
+      return await axios({
         method: 'post',
         url: URL,
-        // headers: {
-        //   'Authorization': 'Basic ' + base64.encode(`${username}:${password}`)
-        // }
         auth: {
           username,
           password
         },
       });
-      console.log(data);
-      return data;
     } catch (error) {
       console.error(error);
     }
