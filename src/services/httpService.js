@@ -42,43 +42,69 @@ class HttpService {
     // invalidate user session on backend
   }
 
-  static async createGroup(groupName, groupAdminId) {
+  static async createGroup(groupName, groupAdminId, token) {
     try{
-      const {data} = await axios.post(APP_URL + '/groups', {
-        groupName,
-        groupAdminId,
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/groups`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          groupName,
+          groupAdminId,
+        }
       });
-      return data;
+      return result;
     }catch(e){
       new Error(`couldn't create group... ${e}`);
     }
   }
   
-  static async deleteGroup(groupId) {
+  static async deleteGroup(groupId, token) {
     try{
-      await axios.delete(`${APP_URL}/groups/${groupId}`);
+      await axios({
+        method: 'delete',
+        url: `${APP_URL}/groups/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
       return 'successful delete';
     }catch(e){
       new Error(`couldn't delete group... ${e}`);
     }
   }
 
-  static async updateGroupName(groupId, newGroupName, groupAdminId) {
+  static async updateGroupName(groupId, newGroupName, groupAdminId, token) {
     try{
-      const data = await axios.put(`${APP_URL}/groups/${groupId}`, {
-        groupName: newGroupName,
-        groupAdminId: groupAdminId
+      const result = await axios({
+        method: 'put',
+        url: `${APP_URL}/groups/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          groupName: newGroupName,
+          groupAdminId: groupAdminId
+        }
       });
-      return data;
+      return result;
     }catch(e){
       new Error(`couldn't update group name... ${e}`);
     }
   }
 
-  static async getUsersGroups(associationId) {
+  static async getUsersGroups(associationId, token) {
     try{
-      const data = await axios.get(`${APP_URL}/associations/${associationId}`);
-      return data;
+      const result = await axios({
+        method: 'get',
+        url: `${APP_URL}/associations/${associationId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
     }catch(e){
       new Error(`couldn't get groups... ${e}`);
     }
@@ -93,27 +119,45 @@ class HttpService {
     }
   }
 
-  static async getGroupMembers(groupId) {
+  static async getGroupMembers(groupId, token) {
     try{
-      const groupAssociations = await axios.get(`${APP_URL}/groupmembers/${groupId}`);
-      return groupAssociations;
+      const result = await axios({
+        method: 'get',
+        url: `${APP_URL}/groupmembers/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
     }catch(e){
       new Error(`couldn't get members... ${e}`);
     }
   }
 
-  static async addMember(groupId, username) {
+  static async addMember(groupId, username, token) {
     try{
-      const {data} = await axios.post(APP_URL + `/associations/${groupId}/${username}`);
-      return data;
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/associations/${groupId}/${username}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
     }catch(e){
       new Error(`couldn't add member... ${e}`);
     }
   }
 
-  static async removeMember(groupId, userid){
+  static async removeMember(groupId, userid, token){
     try{
-      await axios.delete(`${APP_URL}/groups/${groupId}/${userid}`);
+      await axios({
+        method: 'delete',
+        url: `${APP_URL}/groups/${groupId}/${userid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
       return 'successful delete';
     }catch(e){
       new Error(`couldn't delete member... ${e}`);
@@ -121,13 +165,20 @@ class HttpService {
   }
 
 // create a wishlist item
-  static async addWishlistItem(associationsId, itemName){
+  static async addWishlistItem(associationsId, itemName, token){
     try{
-      let item = await axios.post(APP_URL + `/listItem`, {
-        itemName,
-        associationsId
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/listItem`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          itemName,
+          associationsId
+        }
       });
-      return item;
+      return result;
     }catch(e){
       new Error(`couldn't add item to wishlist... ${e}`);
     }
@@ -136,11 +187,18 @@ class HttpService {
 // update a wishlist item
   static async updateItem(newItem, wishlistid, associationsId){
     try{
-      const data = await axios.put(`${APP_URL}/listItem/${wishlistid}`, {
-        itemName: newItem,
-        associationsId,
+      const result = await axios({
+        method: 'put',
+        url: `${APP_URL}/listItem/${wishlistid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          itemName: newItem,
+          associationsId,
+        }
       });
-      return data;
+      return result;
     }catch(e){
       new Error(`couldn't update group name... ${e}`);
     }
@@ -149,9 +207,15 @@ class HttpService {
 // create secret santa pairing
   static async createPairs(groupid){
     try{
-      await axios.post(`${APP_URL}/santa/${groupid}`);
+      await axios({
+        method: 'post',
+        url: `${APP_URL}/santa/${groupid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
       return 'successful pairing';
-    }catch(){
+    }catch(e){
       new Error(`couldn't pair santas... ${e}`);
     }
   }
