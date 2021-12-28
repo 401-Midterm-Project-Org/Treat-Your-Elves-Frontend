@@ -18,7 +18,6 @@ const style = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
           isLoggedIn: true,
           username: username,
           token: result.data.token,
-          id: result.data.user.id
+          id: result.data.user.id,
         },
       });
     }
