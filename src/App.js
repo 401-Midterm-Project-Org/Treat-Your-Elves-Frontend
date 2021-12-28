@@ -9,7 +9,8 @@ function App() {
     <div className="App">
       <Header/>
       <Main/>
-      <Footer/>
+      <Footer sx={{position: 'absolute',
+                  width:1}}/>
     </div>
   );
 }

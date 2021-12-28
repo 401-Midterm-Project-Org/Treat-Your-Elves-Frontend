@@ -1,5 +1,5 @@
 import { Box, Typography, Paper } from "@mui/material";
-import Image from "../../theme/snowing.gif"
+import Image from "../../theme/pixel-xmas.gif"
 import React from "react";
 import Admin from "../main/Admin";
 import GroupInterface from "./GroupInterface";
@@ -11,8 +11,8 @@ export default function Main() {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${Image})`,
-      width:1605,
-      height:740,
+      width:1585,
+      height:757,
     }
   }
   return (
