@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Notification = () => {
 
-  const notify = () => toast('🎇 Email has been sent 🎇');
+  const notify = () => toast('🔔 Your email has been sent. ❄️❄️❄️');
   const [openNotifs, setOpenNotifs] = useState(false);
   const [text, setText] = useState('')
   const [sent, setSent] = useState(false)
@@ -15,7 +15,7 @@ const Notification = () => {
   const handleSend = async() => {
     setSent(true)
     try {
-      await axios.post("http://localhost:3001/sendmail/", {
+      await axios.post("http://localhost:3001/sendmail", {
         text,
       })
     } catch(error) {
@@ -51,12 +51,13 @@ const Notification = () => {
             variant="standard"
             onChange={(e) => setText(e.target.value)}
             value={text}
+            onSubmit={handleSend}
           />
         </FormControl>
         <DialogActions>
-          <Button onClick={() => {
+          <Button type="submit" onClick={() => {
             notify();
-            handleSend();
+            handleCloseNotifs();
           }}>
             Send
           </Button>
@@ -64,7 +65,12 @@ const Notification = () => {
         </DialogActions>
       </Dialog>
 
-      <ToastContainer/>
+      <ToastContainer
+      position='top-center'
+      autoClose={3000}
+      hideProgressBar={true}
+      pauseOnHover={false}
+      />
     </>
   );
 };
