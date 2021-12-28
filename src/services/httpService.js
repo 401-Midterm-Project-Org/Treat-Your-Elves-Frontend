@@ -5,11 +5,12 @@ const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 
 class HttpService {
 
-  static async register(username, name, password) {
+  static async register(username, name, password, email) {
     const obj = {
       username,
       name,
-      password
+      password,
+      email
     };
 
     try {

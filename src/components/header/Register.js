@@ -22,8 +22,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  register: async (name, username, password, handleClose) => {
-    const result = await HttpService.register(username, name, password);
+  register: async (name, username, password, email, handleClose) => {
+    const result = await HttpService.register(username, name, password, email);
     console.log(result);
 
     if (result.status === 201) {
@@ -47,11 +47,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleRegister = () => {
-    register(name, username, password, handleClose);
+    register(name, username, password, email, handleClose);
   };
 
   return (
@@ -62,31 +63,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
         onClose={handleClose}
       >
         <Box sx={style}>
-          <FormGroup>
-            <FormControl>
-              <InputLabel htmlFor="my-input">User Name</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
-                setUsername(e.target.value);
-              }}/>
-              <FormHelperText id="my-helper-text">eg. email</FormHelperText>
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="my-input">Name</InputLabel>
+          <FormGroup >
+            <FormControl sx={{my: 2}} >
+              <InputLabel htmlFor="my-input">your name</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setName(e.target.value);
               }}/>
-              <FormHelperText id="my-helper-text">eg. John Smith</FormHelperText>
             </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="my-input">Password</InputLabel>
+            <FormControl sx={{my: 2}} >
+              <InputLabel htmlFor="my-input">username</InputLabel>
+              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+                setUsername(e.target.value);
+              }}/>
+            </FormControl>
+            <FormControl sx={{my: 2}} >
+              <InputLabel htmlFor="my-input">password</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setPassword(e.target.value);
               }}/>
-              <FormHelperText id="my-helper-text">
-                We'll never share your password.
-              </FormHelperText>
             </FormControl>
-            <Button onClick={handleRegister}>Register</Button>
+            <FormControl sx={{my: 2}} >
+              <InputLabel htmlFor="my-input">email</InputLabel>
+              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+                setEmail(e.target.value);
+              }}/>
+            </FormControl>
+            <Button variant="contained" onClick={handleRegister}>Register</Button>
           </FormGroup>
         </Box>
       </Modal>
