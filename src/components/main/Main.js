@@ -9,6 +9,8 @@ import Members from './Members';
 
 
 export default function Main(props) {
+
+  console.log(props.current.myGroups);
   /*
   let dbUserModel = {id: 10, email: 'test@helloworld.com'};
   let groupIds = [1234, 56];
@@ -18,9 +20,11 @@ export default function Main(props) {
   */
 
   const {user, isAuthenticated} = useAuth0();
+  let members;
+  let setMembers;
   // const [dbUserModel, setDbUserModel] = useState({});
-  const [groupIds, setGroupIds] = useState([]);
-  const [members, setMembers] = useState([]);
+  // const [groupIds, setGroupIds] = useState([]);
+  // const [members, setMembers] = useState([]);
 
   // useEffect(() => {
   //     if (isAuthenticated) {

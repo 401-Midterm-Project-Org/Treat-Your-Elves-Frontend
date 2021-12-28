@@ -10,7 +10,7 @@ import store from './store';
 import theme from '../src/theme/theme';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Auth0Provider
       domain="dev--q30c47g.us.auth0.com"
       clientId="XUisvGpG6n4AYeybRH8FFgm3ljpKFj5s"
@@ -21,8 +21,8 @@ ReactDOM.render(
           <App />
         </ThemeProvider>
       </Provider>
-    </Auth0Provider>
-  </React.StrictMode>,
+    </Auth0Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

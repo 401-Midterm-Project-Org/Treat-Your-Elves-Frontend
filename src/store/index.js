@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
 import myGroupsReducer from './mygroups.js';
 import groupMemberReducer from './groupmembers.js'
@@ -10,8 +11,11 @@ let reducers = combineReducers({
   wishlist: wishlistReducer
 });
 
+
+const middleware = applyMiddleware(thunk);
+
 const store = () => {
-  return createStore(reducers);
+  return createStore(reducers, middleware);
 }
 
 export default store;

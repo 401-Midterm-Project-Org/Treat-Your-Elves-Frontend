@@ -12,7 +12,7 @@ export default function Members({myMembers}) {
       Elves
     </Typography>
     <ul>
-       {myMembers.map(member => <li key={member}>{member}<Button variant="contained" size="small">Wishlist</Button></li>)}
+       {/* {myMembers.map(member => <li key={member}>{member}<Button variant="contained" size="small">Wishlist</Button></li>)} */}
     </ul>
     </>
   )

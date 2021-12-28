@@ -7,19 +7,26 @@ import * as React from 'react';
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import HttpService from '../../services/httpService';
-
+import { connect } from 'react-redux';
+import getGroups from '../../store/actions/groups';
 
 
 export default function GroupInterface(props) {
   // TODO: This component will be a MUI pop-out drawer
 
   // groupName, groupAdminId
-  const [groupName, setGroupName] = useState('default');
+  // const [groupName, setGroupName] = useState('default');
 
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
-  console.log(props.current.current);
+  function setGroupName(e){
 
+  }
+
+  let groupName = '';
+
+  console.log(props.myGroups);
+  
   return (
     <>
       <Typography variant="h4" component="div">My Groups</Typography>
@@ -32,15 +39,16 @@ export default function GroupInterface(props) {
           <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
         </FormGroup>
       <List>
-        {
-          props.current.current.myGroups.groups.map(association => (
+      <Button variant="contained" onClick={() => HttpService.createGroup(groupName, user.email)} >+ Create Group</Button>
+        {/* {
+          props.myGroups.map(association => (
             <ListItem key={association.groupAdminId} disablePadding>
               <ListItemButton>
                 <ListItemText primary={association.groupName}/>
               </ListItemButton>
             </ListItem>
           ))
-        }
+        } */}
       </List>
     </>
   );
