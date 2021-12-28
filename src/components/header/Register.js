@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'USER_REGISTERED',
         payload: {
           isLoggedIn: true,
-          userName: username,
+          username: username,
           token: result.data.token,
           id: result.data.user.id,
         },
