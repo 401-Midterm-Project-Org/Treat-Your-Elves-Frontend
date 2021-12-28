@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Register from './Register';
+import Login from './Login'
 
 import {
   Button,
@@ -9,8 +11,6 @@ import {
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-
-import { useAuth0 } from "@auth0/auth0-react";
 
 import Profile from './Profile';
 
@@ -28,7 +28,6 @@ const style = {
 };
 
 export default function HeaderButtons(props) {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   const [open, setOpen] = React.useState(false);
 
@@ -37,14 +36,12 @@ export default function HeaderButtons(props) {
   
   return (
     <>
-      {isAuthenticated ? 
       <>
         <Button color="secondary" onClick={handleOpen}><AccountCircleTwoToneIcon />ACCOUNT</Button>
-        <Button color="secondary" onClick={() => logout({ returnTo: window.location.origin })}><LogoutTwoToneIcon />LOGOUT</Button>
+        <Button color="secondary"><LogoutTwoToneIcon />LOGOUT</Button>
       </>
-      : 
-        <Button color="secondary" onClick={() => loginWithRedirect()}><LoginTwoToneIcon />LOGIN</Button>
-      }
+        <Login />
+        <Register />
       
       <Modal
         onClose={handleClose}

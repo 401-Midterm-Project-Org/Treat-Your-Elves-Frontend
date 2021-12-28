@@ -10,6 +10,7 @@ import {
   Box
 } from "@mui/material";
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
+import HttpService from "../../services/httpService";
 
 const style = {
   position: 'absolute',
@@ -23,15 +24,19 @@ const style = {
   p: 4,
 };
 
-export default function Login(props) {
+export default function Register(props) {
 
   const [open, setOpen] = React.useState(false);
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
+  // console.log(username)
   return (
     <>
-    <Button color="secondary" onClick={handleOpen}><LoginTwoToneIcon />LOGIN</Button>
+    <Button color="secondary" onClick={handleOpen}><LoginTwoToneIcon />REGISTER</Button>
     <Modal
     open={open}
     onClose={handleClose}
@@ -40,18 +45,22 @@ export default function Login(props) {
     <FormGroup>
       <FormControl>
         <InputLabel htmlFor="my-input">User Name</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
-        <FormHelperText id="my-helper-text">eg. your email</FormHelperText>
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setUsername(e.target.value)}}/>
+        <FormHelperText id="my-helper-text">eg. JohnSmith</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor="my-input">Name</InputLabel>
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setName(e.target.value)}}/>
+        <FormHelperText id="my-helper-text">eg. John Smith</FormHelperText>
       </FormControl>
       <FormControl>
         <InputLabel htmlFor="my-input">Password</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setPassword(e.target.value)}}/>
         <FormHelperText id="my-helper-text">
           We'll never share your password.
         </FormHelperText>
       </FormControl>
-      <Button>Login</Button>
-      <p>Don't have an account? Register!</p>
+      <Button onClick={() => HttpService.register(username, name, password)} >Register</Button>
     </FormGroup>
     </Box>
     </Modal>

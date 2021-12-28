@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Button, Typography } from "@mui/material";
+import Notification from "../forms/Notification";
+import AddMember from "../forms/AddMember";
 
 export default function Admin() {
   return (
@@ -7,8 +9,8 @@ export default function Admin() {
       <Typography variant="h4" component="div">
         Admin Interface
       </Typography>
-      <Button variant="contained">Notifications</Button>
-      <Button variant="contained">Add Member</Button>
+      <Notification />
+      <AddMember />
       <Button variant="contained">Remove Member</Button>
       <Button variant="contained">Match</Button>
     </>
