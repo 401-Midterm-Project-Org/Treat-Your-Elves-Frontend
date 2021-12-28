@@ -1,21 +1,30 @@
+import {ThemeProvider} from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from '@mui/material/styles';
-import { Provider } from 'react-redux';
-import store from './store';
+import {Provider} from 'react-redux';
 import theme from '../src/theme/theme';
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import reduxStore from './store';
+
 
 ReactDOM.render(
-  // <React.StrictMode>
-      <Provider store={store()}>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Provider>,
-  // </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <Provider store={reduxStore()}>
+      {/* Any component nested inside the Provider
+          can consume the store
+
+          We don't need to inject props as attributes
+
+          We just need to import connect from 'react-redux'
+          in the components that need the store, and
+          destructure the store props at the level of
+          method-injection
+      */}
+      <App/>
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
