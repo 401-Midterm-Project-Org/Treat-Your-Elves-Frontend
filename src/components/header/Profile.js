@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Profile = ({isLoading, isLoggedIn, username, userEmail, userPicture}) => {
+  console.log('in profile-->', isLoading, isLoggedIn, username, userEmail, userPicture);
   if (isLoading) {
     return (
       <div>
@@ -23,15 +24,17 @@ const Profile = ({isLoading, isLoggedIn, username, userEmail, userPicture}) => {
     );
   }
 
-  return (
-    isLoggedIn && (
+  if (isLoggedIn) {
+    return (
       <div>
+        <h2>Logged in!</h2>
         <img src={userPicture} alt={username}/>
         <h2>{username}</h2>
         <p>{userEmail}</p>
-      </div>
-    )
-  );
+      </div>);
+  }
+
+  return <></>;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
