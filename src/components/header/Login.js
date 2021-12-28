@@ -10,6 +10,7 @@ import {
   Box
 } from "@mui/material";
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
+import HttpService from "../../services/httpService";
 
 const style = {
   position: 'absolute',
@@ -28,6 +29,9 @@ export default function Login(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
   
   return (
     <>
@@ -40,17 +44,17 @@ export default function Login(props) {
     <FormGroup>
       <FormControl>
         <InputLabel htmlFor="my-input">User Name</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setUsername(e.target.value)}}/>
         <FormHelperText id="my-helper-text">eg. your email</FormHelperText>
       </FormControl>
       <FormControl>
         <InputLabel htmlFor="my-input">Password</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
+        <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {setPassword(e.target.value)}}/>
         <FormHelperText id="my-helper-text">
           We'll never share your password.
         </FormHelperText>
       </FormControl>
-      <Button>Login</Button>
+      <Button onClick={() => HttpService.login(username, password)}>Login</Button>
       <p>Don't have an account? Register!</p>
     </FormGroup>
     </Box>

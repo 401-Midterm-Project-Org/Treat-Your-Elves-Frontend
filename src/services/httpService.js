@@ -1,11 +1,12 @@
 import axios from 'axios';
+import base64 from 'base-64';
 
 
 const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 
 class HttpService {
 
-// login
+// register
   static async register(username, name, password) {
     const obj = {
       username,
@@ -24,6 +25,37 @@ class HttpService {
     }
     // return {id: 10, email: 'test@helloworld.com'};
   }
+
+  //login
+
+  static async login(username, password) {
+
+    const obj = {
+      username,
+      password
+    };
+
+    const URL = `${APP_URL}/signin`;
+
+    try {
+      const {data} = await axios({
+        method: 'post',
+        url: URL,
+        // headers: {
+        //   'Authorization': 'Basic ' + base64.encode(`${username}:${password}`)
+        // }
+        auth: {
+          username,
+          password
+        },
+      });
+      console.log(data)
+      return data;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
 
 // logout
   static async logout({email}) {
