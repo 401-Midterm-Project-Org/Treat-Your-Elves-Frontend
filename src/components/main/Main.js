@@ -2,7 +2,6 @@ import { Box, Typography, Paper } from "@mui/material";
 import Image from "../../theme/pixel-xmas.gif"
 import React from "react";
 import Admin from "../main/Admin";
-import GroupInterface from "./GroupInterface";
 import Members from "./Members";
 import Recipient from "./Recipient"
 
