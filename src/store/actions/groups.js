@@ -11,7 +11,7 @@ const getGroups = (email) => async (dispatch) => {
     console.log('getGroups error:', e);
   }
   dispatch({
-    type: 'GET_GROUPS',
+    type: 'SET_GROUPS',
     payload: response.data
   });
 };

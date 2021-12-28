@@ -1,18 +1,11 @@
-import * as React from 'react';
-import Register from './Register';
-import Login from './Login'
-
-import {
-  Button,
-  Modal,
-  Box,
-} from "@mui/material/";
-
-import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
-import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import {Box, Button, Modal,} from '@mui/material';
+import {useState} from 'react';
+import Login from './Login';
 import Profile from './Profile';
+import Register from './Register';
+
 
 const style = {
   position: 'absolute',
@@ -27,29 +20,36 @@ const style = {
   alignitems: 'center',
 };
 
-export default function HeaderButtons(props) {
+export default function HeaderButtons({isLoggedIn}) {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+
+  const renderLoginLogoutButton = () => {
+    if (isLoggedIn) {
+      return <>
+        <Button color="secondary" onClick={handleOpen}><AccountCircleTwoToneIcon/>ACCOUNT</Button>
+        <Button color="secondary"><LogoutTwoToneIcon/>LOGOUT</Button>
+      </>;
+    }
+    return <>
+      <Login/>
+      <Register/>
+    </>;
+  };
+
   return (
     <>
-      <>
-        <Button color="secondary" onClick={handleOpen}><AccountCircleTwoToneIcon />ACCOUNT</Button>
-        <Button color="secondary"><LogoutTwoToneIcon />LOGOUT</Button>
-      </>
-        <Login />
-        <Register />
-      
+      {renderLoginLogoutButton()}
       <Modal
         onClose={handleClose}
         aria-labelledby="My Profile"
         open={open}
       >
         <Box style={style}>
-          <Profile />
+          <Profile/>
         </Box>
       </Modal>
     </>

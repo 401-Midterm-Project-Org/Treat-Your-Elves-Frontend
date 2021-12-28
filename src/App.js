@@ -1,37 +1,17 @@
 import './App.css';
+import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
-import Footer from './components/footer/Footer'
-import Main from './components/main/Main'
-import getGroups from './store/actions/groups';
-
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import Main from './components/main/Main';
 
 
-
-function App(props) {
-  
-  useEffect(() => {
-      props.getGroups('justin.hamerly@gmail.com');
-  }, [])
-
+function App() {
   return (
     <div className="App">
-      <Header current={props} />
-      <Main current={props} />
-      <Footer />
+      <Header/>
+      <Main/>
+      <Footer/>
     </div>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    myGroups: state.mygroups,
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  getGroups: (email) => dispatch(getGroups(email)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
