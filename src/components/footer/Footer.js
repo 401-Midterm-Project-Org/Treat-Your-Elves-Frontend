@@ -1,10 +1,10 @@
-import * as React from "react";
-import { AppBar, Box, Toolbar } from "@mui/material/";
+import {AppBar, Box, Toolbar} from '@mui/material';
+
 
 export default function Footer() {
   return (
     <Box
-      sx={{ flexGrow: 1 }}
+      sx={{flexGrow: 1}}
       position="relative"
       min-height="100%"
       padding-bottom="2.5rem"
