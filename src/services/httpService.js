@@ -1,5 +1,4 @@
 import axios from 'axios';
-import base64 from 'base-64';
 
 
 const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
@@ -18,16 +17,15 @@ class HttpService {
 
     try {
       const {data} = await axios.post(URL, obj);
-      console.log(data)
+      console.log(data);
       return data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
     // return {id: 10, email: 'test@helloworld.com'};
   }
 
-  //login
-
+//login
   static async login(username, password) {
 
     const obj = {
@@ -49,10 +47,10 @@ class HttpService {
           password
         },
       });
-      console.log(data)
+      console.log(data);
       return data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
@@ -108,10 +106,11 @@ class HttpService {
   }
 
 // add member to group
-static async addMember(email, groupId) {
-  const {data} = await axios.post(APP_URL + `/associations/${groupId}/${email}`)
-  return data;
-}
+  static async addMember(email, groupId) {
+    const {data} = await axios.post(APP_URL + `/associations/${groupId}/${email}`);
+    return data;
+  }
+
 // remove member from group
 
 // create a wishlist item
