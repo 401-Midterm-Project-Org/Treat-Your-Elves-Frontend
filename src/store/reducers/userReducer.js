@@ -10,11 +10,7 @@ function userReducer(state = initialState, action) {
   switch (type) {
     case 'LOGIN':
       console.log(payload);
-      return {
-        isLoggedIn: true,
-        userName: payload.username,
-        token: payload.token,
-      };
+      return payload;
     default:
       return state;
   }
