@@ -1,9 +1,9 @@
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import {Box, Button, Modal,} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
 import Login from './Login';
+import Logout from './Logout';
 import Profile from './Profile';
 import Register from './Register';
 
@@ -36,7 +36,7 @@ export default connect(mapStateToProps)(function HeaderButtons({isLoggedIn}) {
     if (isLoggedIn) {
       return <>
         <Button color="secondary" onClick={handleOpen}><AccountCircleTwoToneIcon/>ACCOUNT</Button>
-        <Button color="secondary"><LogoutTwoToneIcon/>LOGOUT</Button>
+        <Logout/>
       </>;
     }
     return <>
