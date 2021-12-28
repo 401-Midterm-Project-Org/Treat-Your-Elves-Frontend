@@ -5,7 +5,6 @@ const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 
 class HttpService {
 
-// register
   static async register(username, name, password) {
     const obj = {
       username,
@@ -13,26 +12,20 @@ class HttpService {
       password
     };
 
-    const URL = `${APP_URL}/signup`;
-
     try {
-      const {data} = await axios.post(URL, obj);
-      console.log(data);
+      const {data} = await axios.post(`${APP_URL}/signup`, obj);
+      console.log(data)
       return data;
     } catch (error) {
       console.error(error);
     }
-    // return {id: 10, email: 'test@helloworld.com'};
   }
 
-//login
   static async login(username, password) {
-    const URL = `${APP_URL}/signin`;
-
     try {
       return await axios({
         method: 'post',
-        url: URL,
+        url: `${APP_URL}/signin`,
         auth: {
           username,
           password
@@ -43,52 +36,74 @@ class HttpService {
     }
   }
 
-
-// logout
   static async logout({email}) {
     // todo: add logout mechanism with backend
-
     // hook into the frontend's login mechanism
     // invalidate user session on backend
   }
 
-// delete group
-  static async deleteGroup({groupId}) {
-    //
+  static async createGroup(groupName, groupAdminId) {
+    try{
+      const {data} = await axios.post(APP_URL + '/groups', {
+        groupName,
+        groupAdminId,
+      });
+      return data;
+    }catch(e){
+      new Error(`couldn't create group... ${e}`);
+    }
+  }
+  // ^^^ returns an object with 2 things:
+  // {
+  //   group: {id: 1, groupName: 'test', groupAdminId: 1 }
+  //   groupAssociation: {id: 1, groupId: group.id, userId: group.groupAdminId}
+  // }
+  
+  static async deleteGroup(groupId) {
+    try{
+      await axios.delete(`${APP_URL}/groups/${groupId}`);
+      return 'successful delete';
+    }catch(e){
+      new Error(`couldn't delete group... ${e}`);
+    }
   }
 
-// create group
-// Main component will have useState for user object that comes from the backend db
-// --> pass in the user.userId
-// groupID is returned from db on create
-  static async createGroup(groupName, email) {
-    const {data} = await axios.post(APP_URL + '/groups', {
-      groupName: groupName,
-      groupAdminId: email,
-    });
-
-    return data;
-    // backend gives us a groupId
+  static async updateGroupName(groupId, newGroupName, groupAdminId) {
+    try{
+      const data = await axios.put(`${APP_URL}/groups/${groupId}`, {
+        groupName: newGroupName,
+        groupAdminId: groupAdminId
+      });
+      return data;
+    }catch(e){
+      new Error(`couldn't update group name... ${e}`);
+    }
   }
 
-// get user's groups
-  static async getUsersGroups(userId) {
-    const ASSOCIATIONS_URL = `${APP_URL}/associations/${userId}`;
-    const {data} = await axios.get(ASSOCIATIONS_URL);
+  static async getUsersGroups(associationId) {
+    const {data} = await axios.get(`${APP_URL}/associations/${associationId}`);
     return data;
   }
 
 // get group members
   static async getGroupMembers(groupId) {
-    // match group id on associations table
+    // get all group assocations
+    // returs array with group members objects that looks like this
+    // {
+    //   id:
+    //   groupId:
+    //   userId:
+    //   role:
+    // }
+    // map over assocation objects and return a new array with the user object and the association id
 
-    // returns from db, associated member id's
+    const groupAssociations = await axios.get(`${APP_URL}/groupmembers/${groupId}`);
+    const users = groupAssociations.map(association => {
+      const userobj = await axios.get()
+    })
 
-    // todo: need to get associated members by id, add to output array, return it
 
-    const obj = {};
 
-    const GROUP_MEMBERS_URL = `${APP_URL}/groupmembers`;
     const USERS_URL = `${APP_URL}/${groupId}`;
 
     return new Promise((resolve, reject) => resolve(['member1', 'member2']));
