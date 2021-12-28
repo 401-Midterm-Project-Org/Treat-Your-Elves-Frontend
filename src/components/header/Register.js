@@ -68,7 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
               <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setUsername(e.target.value);
               }}/>
-              <FormHelperText id="my-helper-text">eg. JohnSmith</FormHelperText>
+              <FormHelperText id="my-helper-text">eg. email</FormHelperText>
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="my-input">Name</InputLabel>
