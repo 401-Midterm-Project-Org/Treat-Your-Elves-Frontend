@@ -1,6 +1,7 @@
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {Box, Button, FormControl, FormGroup, FormHelperText, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
+import {connect} from 'react-redux';
 import HttpService from '../../services/httpService';
 
 
@@ -16,7 +17,30 @@ const style = {
   p: 4,
 };
 
-export default function Login() {
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: async (username, password, handleClose) => {
+    const result = await HttpService.login(username, password);
+
+    if (result.status === 200) {
+      handleClose();
+
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          isLoggedIn: true,
+          userName: username,
+          token: result.data.token,
+        },
+      });
+    }
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Login({login}) {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -26,7 +50,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    HttpService.login(username, password);
+    login(username, password, handleClose);
   };
 
   return (
@@ -61,4 +85,4 @@ export default function Login() {
       </Modal>
     </>
   );
-}
+});
