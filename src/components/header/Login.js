@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login: async (username, password, handleClose) => {
     const result = await HttpService.login(username, password);
-
+    console.log(result.data);
     if (result.status === 200) {
       handleClose();
 
@@ -32,8 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'LOGIN',
         payload: {
           isLoggedIn: true,
-          userName: username,
+          username: username,
           token: result.data.token,
+          id: result.data.user.id
         },
       });
     }

@@ -5,7 +5,6 @@ const APP_URL = process.env.REACT_APP_URL || 'http://localhost:3001';
 
 class HttpService {
 
-// register
   static async register(username, name, password) {
     const obj = {
       username,
@@ -13,26 +12,20 @@ class HttpService {
       password
     };
 
-    const URL = `${APP_URL}/signup`;
-
     try {
-      const {data} = await axios.post(URL, obj);
-      console.log(data);
+      const {data} = await axios.post(`${APP_URL}/signup`, obj);
+      console.log(data)
       return data;
     } catch (error) {
       console.error(error);
     }
-    // return {id: 10, email: 'test@helloworld.com'};
   }
 
-//login
   static async login(username, password) {
-    const URL = `${APP_URL}/signin`;
-
     try {
       return await axios({
         method: 'post',
-        url: URL,
+        url: `${APP_URL}/signin`,
         auth: {
           username,
           password
@@ -43,71 +36,189 @@ class HttpService {
     }
   }
 
-
-// logout
   static async logout({email}) {
     // todo: add logout mechanism with backend
-
     // hook into the frontend's login mechanism
     // invalidate user session on backend
   }
 
-// delete group
-  static async deleteGroup({groupId}) {
-    //
+  static async createGroup(groupName, groupAdminId, token) {
+    try{
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/groups`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          groupName,
+          groupAdminId,
+        }
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't create group... ${e}`);
+    }
+  }
+  
+  static async deleteGroup(groupId, token) {
+    try{
+      await axios({
+        method: 'delete',
+        url: `${APP_URL}/groups/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return 'successful delete';
+    }catch(e){
+      new Error(`couldn't delete group... ${e}`);
+    }
   }
 
-// create group
-// Main component will have useState for user object that comes from the backend db
-// --> pass in the user.userId
-// groupID is returned from db on create
-  static async createGroup(groupName, email) {
-    const {data} = await axios.post(APP_URL + '/groups', {
-      groupName: groupName,
-      groupAdminId: email,
-    });
-
-    return data;
-    // backend gives us a groupId
+  static async updateGroupName(groupId, newGroupName, groupAdminId, token) {
+    try{
+      const result = await axios({
+        method: 'put',
+        url: `${APP_URL}/groups/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          groupName: newGroupName,
+          groupAdminId: groupAdminId
+        }
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't update group name... ${e}`);
+    }
   }
 
-// get user's groups
-  static async getUsersGroups(userId) {
-    const ASSOCIATIONS_URL = `${APP_URL}/associations/${userId}`;
-    const {data} = await axios.get(ASSOCIATIONS_URL);
-    return data;
+  static async getUsersGroups(associationId, token) {
+    try{
+      const result = await axios({
+        method: 'get',
+        url: `${APP_URL}/associations/${associationId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't get groups... ${e}`);
+    }
   }
 
-// get group members
-  static async getGroupMembers(groupId) {
-    // match group id on associations table
-
-    // returns from db, associated member id's
-
-    // todo: need to get associated members by id, add to output array, return it
-
-    const obj = {};
-
-    const GROUP_MEMBERS_URL = `${APP_URL}/groupmembers`;
-    const USERS_URL = `${APP_URL}/${groupId}`;
-
-    return new Promise((resolve, reject) => resolve(['member1', 'member2']));
+  static async getName(userid){
+    try{
+      const data = await axios.get(`${APP_URL}/name/${userid}`);
+      return data;
+    }catch(e){
+      new Error(`couldn't get user's name... ${e}`);
+    }
   }
 
-// add member to group
-  static async addMember(email, groupId) {
-    const {data} = await axios.post(APP_URL + `/associations/${groupId}/${email}`);
-    return data;
+  static async getGroupMembers(groupId, token) {
+    try{
+      const result = await axios({
+        method: 'get',
+        url: `${APP_URL}/groupmembers/${groupId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't get members... ${e}`);
+    }
   }
 
-// remove member from group
+  static async addMember(groupId, username, token) {
+    try{
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/associations/${groupId}/${username}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't add member... ${e}`);
+    }
+  }
+
+  static async removeMember(groupId, userid, token){
+    try{
+      await axios({
+        method: 'delete',
+        url: `${APP_URL}/groups/${groupId}/${userid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return 'successful delete';
+    }catch(e){
+      new Error(`couldn't delete member... ${e}`);
+    }
+  }
 
 // create a wishlist item
+  static async addWishlistItem(associationsId, itemName, token){
+    try{
+      const result = await axios({
+        method: 'post',
+        url: `${APP_URL}/listItem`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          itemName,
+          associationsId
+        }
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't add item to wishlist... ${e}`);
+    }
+  }
 
 // update a wishlist item
+  static async updateItem(newItem, wishlistid, associationsId, token){
+    try{
+      const result = await axios({
+        method: 'put',
+        url: `${APP_URL}/listItem/${wishlistid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        data: {
+          itemName: newItem,
+          associationsId,
+        }
+      });
+      return result;
+    }catch(e){
+      new Error(`couldn't update group name... ${e}`);
+    }
+  }
 
 // create secret santa pairing
-
+  static async createPairs(groupid, token){
+    try{
+      await axios({
+        method: 'post',
+        url: `${APP_URL}/santa/${groupid}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return 'successful pairing';
+    }catch(e){
+      new Error(`couldn't pair santas... ${e}`);
+    }
+  }
 
 }
 
