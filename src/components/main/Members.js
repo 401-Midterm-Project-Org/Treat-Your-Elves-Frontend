@@ -1,4 +1,4 @@
-import {Button, Typography} from '@mui/material';
+import {Button, Typography, List, ListItem} from '@mui/material';
 import {connect} from 'react-redux';
 
 
@@ -35,21 +35,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({gr
       <Typography variant="h4" component="div">
         GROUP ELVES
       </Typography>
-      <ul>
-        {members?.map(member => (
-          <li key={member.id}>
-            {member.name}
-            <Button
-              variant="contained"
-              size="small"
-              onClick={showWishList}>Show Wishlist</Button>
-            {/* remove member only shows if admin */}
-            {group.isAdministrator && <Button
-              variant="contained"
-              size="small"
-              onClick={() => removeMember(member.id, group.id)}>Remove Member</Button>}
-          </li>))}
-      </ul>
+      <List>
+        {myMembers?.map(
+          member => (
+            <ListItem key={member.id}>
+              {member.name}
+              <Button
+                variant="contained"
+                size="small"
+                onClick={showWishList}>Wishlist</Button>
+                {/* remove member only shows if admin */}
+              <Button
+                variant="contained"
+                size="small"
+                onClick={removeMember}>Remove</Button>
+            </ListItem>))}
+      </List>
     </>
   );
 });
