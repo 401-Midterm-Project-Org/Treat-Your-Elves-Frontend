@@ -40,6 +40,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({
       type: 'GROUP_CREATED',
       payload: {
+        wishlists: [{
+          //
+        }],
         group: {
           id: crypto.randomUUID(),
           groupName,

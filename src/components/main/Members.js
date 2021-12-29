@@ -11,10 +11,12 @@ const mapStateToProps = ({store}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showWishList: () => {
+  showWishList: (userName) => {
     dispatch({
-      type: 'SHOW_WISHLIST',
-      payload: true,
+      type: 'WISHLIST_CLICKED',
+      payload: {
+        userName,
+      },
     });
   },
 
@@ -43,7 +45,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({gr
               <Button
                 variant="contained"
                 size="small"
-                onClick={showWishList}>Wishlist</Button>
+                onClick={() => showWishList(member.name)}>Wishlist</Button>
                 {/* remove member only shows if admin */}
               <Button
                 variant="contained"
