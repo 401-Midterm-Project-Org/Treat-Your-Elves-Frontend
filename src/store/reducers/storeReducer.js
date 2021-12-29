@@ -1,25 +1,33 @@
 const initialState = {
   user: {
-    // id: null,
+    id: crypto.randomUUID(),
     // token: null,
-    // isLoggedIn: false,
-    // username: null,
-    // email: null,
+    isLoggedIn: true,
+    username: 'santa',
+    email: 's@clause.biz',
     // picture: null,
   },
   loadStatus: {
     isLoading: true,
   },
   wishlists: [{
-    userName: 'tim',
+    username: 'tim',
     itemName: 'tv',
     // isSelected: true,
   }, {
-    userName: 'tim',
+    username: 'tim',
     itemName: 'baseball',
     // isSelected: true,
   }, {
-    userName: 'tray',
+    username: 'testmember1',
+    itemName: 'new name',
+    // isSelected: true,
+  }, {
+    username: 'testmember2',
+    itemName: 'cool thing',
+    // isSelected: true,
+  }, {
+    username: 'tray',
     itemName: 'vacation',
   }],
   groups: [{
@@ -80,23 +88,25 @@ export default function storeReducer(state = initialState, action) {
           return {...group, isSelected: false};
         }),
       };
+    case 'DELETE_WISHLIST':
+      return {
+        ...state,
+        wishlists: state.wishlists.filter(l => {
+          return l.itemName !== payload.itemName /*&& l.username !== payload.username*/;
+        }),
+      };
     case 'WISHLIST_CLICKED':
-      // const groupMember = state.groups.filter(g => g.id === payload.groupId);
-      // const wishlist = groupMember.wishlists.filter(l => l.userId === payload.memberId);
-
-      const s = {
+      return {
         ...state,
         wishlists: [
           ...state.wishlists.map(l => {
-            if (l.userName === payload.userName) {
+            if (l.username === payload.username) {
               return {...l, isSelected: true};
             }
             return {...l, isSelected: false};
           }),
         ],
       };
-      console.log(payload, s);
-      return s;
     case 'GROUP_CREATED':
       if (state.groups.some(g => g.groupName === payload.group.groupName)) {
         return state;

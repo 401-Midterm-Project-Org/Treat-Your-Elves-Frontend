@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
     });
   },
 
-  createGroup: (groupName, closeModal, userId, userName) => {
+  createGroup: (groupName, closeModal, userId, username) => {
     closeModal();
 
     dispatch({
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
           isSelected: true,
           groupMembers: [{
             id: userId,
-            name: userName,
+            name: username,
           }],
         }
       },

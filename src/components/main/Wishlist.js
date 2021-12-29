@@ -32,19 +32,20 @@ const mapStateToProps = ({store}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  update: () => {
+  deleteWishlistItem: (username, itemName) => {
     // HttpService.updateItem(wish, 'wishlistid', 'associationsId', 'token');
 
     dispatch({
-      type: 'UPDATE_WISHLIST',
+      type: 'DELETE_WISHLIST',
       payload: {
-        //
+        username,
+        itemName,
       },
     });
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({wishlists, update}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({wishlists, deleteWishlistItem}) {
   const [open, setOpen] = useState(false);
   const [wish, setWish] = useState('');
 
@@ -53,8 +54,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({w
   const handleUpdate = (wish) => {
     //
   };
-  const handleDelete = () => {
-    //
+  const handleDelete = (username, itemName) => {
+    deleteWishlistItem(username, itemName);
   };
 
   return (
@@ -69,8 +70,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({w
             <li key={wishlist.id}>
               {wishlist.itemName}
               <Button variant="contained" size="small"
-                      onClick={() => handleDelete(wishlist.userId)}>DELETE</Button>
-              <Button variant="contained" size="small" onClick={() => handleOpen}>UPDATE</Button>
+                      onClick={() => handleDelete(wishlist.username, wishlist.itemName)}>DELETE</Button>
+              {/*<Button variant="contained" size="small" onClick={() => handleOpen}>UPDATE</Button>*/}
             </li>))}
       </ul>
       <Modal
