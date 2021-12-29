@@ -15,7 +15,7 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({store}) => ({
   //
 });
 

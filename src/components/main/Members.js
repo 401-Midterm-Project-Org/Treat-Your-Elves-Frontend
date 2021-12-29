@@ -2,8 +2,8 @@ import {Button, Typography} from '@mui/material';
 import {connect} from 'react-redux';
 import HttpService from '../../services/httpService';
 
-const mapStateToProps = (state) => ({
-  myMembers: state.myGroups.members,
+const mapStateToProps = ({store}) => ({
+  myMembers: store.members,
 });
 const mapDispatchToProps = (dispatch) => ({
   showWishList: () => {

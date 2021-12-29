@@ -8,14 +8,14 @@ import Recipient from './Recipient';
 import Wishlist from './Wishlist';
 
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
-  isAdministrator: state.user.isAdministrator,
+const mapStateToProps = ({store}) => ({
+  isLoggedIn: store.user.isLoggedIn,
+  isAdministrator: store.user.isAdministrator,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   //
-}); 
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLoggedIn, isAdministrator}) {
   const styles = {
