@@ -17,9 +17,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Logout({logout}) {
-  const handleLogout = () => {
-    logout();
-  };
-
-  return <Button color="secondary" onClick={handleLogout}><LogoutTwoToneIcon/>LOGOUT</Button>;
+  return <Button color="secondary" onClick={logout}><LogoutTwoToneIcon/>LOGOUT</Button>;
 });
