@@ -39,11 +39,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function AddMember({
       <Button onClick={handleOpenInvite} variant="contained"
               sx={{
                 display: 'inline-grid'
-              }}>Add Member</Button>
+              }}>Add Elf Member</Button>
       <Dialog open={openInvite} onClose={handleCloseInvite}>
-        <DialogTitle>Invite New Member</DialogTitle>
+        <DialogTitle>Add Elf to Group</DialogTitle>
         <FormControl>
-          <InputLabel htmlFor="my-input">Enter email</InputLabel>
+          <InputLabel htmlFor="my-input">Enter elf username</InputLabel>
           <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => setUser(e.target.value)}/>
         </FormControl>
         <DialogActions>
