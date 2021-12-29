@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Profile = ({isLoading, isLoggedIn, username, userEmail, userPicture}) => {
-  console.log('in profile-->', isLoading, isLoggedIn, username, userEmail, userPicture);
   if (isLoading) {
     return (
       <div>
