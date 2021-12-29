@@ -1,20 +1,39 @@
 import {Button, Dialog, DialogActions, DialogTitle, FormControl, Input, InputLabel} from '@mui/material';
 import {useState} from 'react';
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import HttpService from '../../services/httpService';
+import {connect} from 'react-redux';
 
 
-export default function AddMember() {
+const mapStateToProps = ({store}) => ({
+  selectedGroup: store.groups.filter(group => group.isSelected)[0],
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleSubmit: (group, username) => {
+    const g = {
+      ...group,
+      groupMembers: [
+        // ...group[0].groupMembers,
+        {
+          id: crypto.randomUUID(),
+          name: username,
+        }
+      ],
+    };
+
+    dispatch({
+      type: 'MEMBER_ADDED',
+      payload: {
+        // group, username
+        group: g,
+      },
+    });
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function AddMember({handleSubmit, selectedGroup}) {
 
   const [openInvite, setOpenInvite] = useState(false);
-  const [addUser, setAddUser] = useState([]);
-
-  function handleSubmit(e) {
-    HttpService.addMember('bryndarling@gmail.com', 1);
-    console.log(e);
-    setAddUser([...addUser, e]);
-  }
+  const [user, setUser] = useState();
 
   const handleOpenInvite = () => {
     setOpenInvite(true);
@@ -34,18 +53,16 @@ export default function AddMember() {
         <DialogTitle>Invite New Member</DialogTitle>
         <FormControl>
           <InputLabel htmlFor="my-input">Enter email</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text"/>
+          <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => setUser(e.target.value)}/>
         </FormControl>
         <DialogActions>
           <Button onClick={() => {
             handleCloseInvite();
-            handleSubmit();
+            handleSubmit(selectedGroup, user);
           }}>Send</Button>
           <Button onClick={handleCloseInvite}>Cancel</Button>
         </DialogActions>
       </Dialog>
-
-      <ToastContainer/>
     </>
   );
-}
+});

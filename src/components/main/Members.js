@@ -15,27 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
       payload: true,
     });
   },
-  /*
-  addMember: async (groupId, username, token) => {
-    // const response = await HttpService.addMember(groupId, username, token);
-    // const data = response.data;
 
-    dispatch({
-      type: 'ADD_GROUPS',
-      payload:{
-        groups: [{
-          id: 1,
-          name: 'aaa',
-          email: 'aaa@aaa.com',
-        },{
-          id: 2,
-          name: 'bbb',
-          email: 'bbb@bbb.com',
-        }],
-      }
-    });
-  },
-    */
   removeMember: async (groupId, userId, token) => {
     // const removeMemberReponse = await HttpService.removeMember(groupId, userId, token);
     // const response = await HttpService.removeMember(groupId, userId, token);

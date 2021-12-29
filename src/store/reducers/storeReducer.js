@@ -10,12 +10,11 @@ const initialState = {
   loadStatus: {
     isLoading: true,
   },
-  groups: [],
-/*
+  // groups: [],
   groups: [{
     id: crypto.randomUUID(),
     groupName: 'inb4',
-    // groupMembers: null,
+    groupMembers: [],
     // isSelected: true,
     isAdministrator: true,
   }, {
@@ -29,8 +28,8 @@ const initialState = {
       name: 'testmember2'
     }],
     // isSelected: true,
+    isAdministrator: true,
   }],
-*/
 };
 
 export default function storeReducer(state = initialState, action) {
@@ -72,6 +71,14 @@ export default function storeReducer(state = initialState, action) {
         return state;
       }
 
+      return {
+        ...state,
+        groups: [
+          ...state.groups,
+          payload.group,
+        ],
+      };
+    case 'MEMBER_ADDED':
       return {
         ...state,
         groups: [
