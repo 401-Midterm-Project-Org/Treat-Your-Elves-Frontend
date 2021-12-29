@@ -44,10 +44,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({gr
               size="small"
               onClick={showWishList}>Show Wishlist</Button>
             {/* remove member only shows if admin */}
-            <Button
+            {group.isAdministrator && <Button
               variant="contained"
               size="small"
-              onClick={() => removeMember(member.id, group.id)}>Remove Member</Button>
+              onClick={() => removeMember(member.id, group.id)}>Remove Member</Button>}
           </li>))}
       </ul>
     </>

@@ -14,7 +14,10 @@ const initialState = {
   groups: [{
     id: crypto.randomUUID(),
     groupName: 'inb4',
-    groupMembers: [],
+    groupMembers: [{
+      id: crypto.randomUUID(),
+      name: 'hello!',
+    }],
     // isSelected: true,
     // isAdministrator: true,
   }, {
@@ -102,6 +105,13 @@ export default function storeReducer(state = initialState, action) {
           }
           return group;
         }),
+      };
+    case 'GROUP_DELETED':
+      return {
+        ...state,
+        groups: [
+          ...state.groups.filter(group => group.id !== payload.id)
+        ],
       };
     default:
       return state;
