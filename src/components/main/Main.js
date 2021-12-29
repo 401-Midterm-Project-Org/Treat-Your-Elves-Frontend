@@ -6,14 +6,24 @@ import Members from "./Members";
 import Recipient from "./Recipient"
 
 
-export default function Main() {
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  isAdministrator: state.user.isAdministrator,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  //
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLoggedIn, isAdministrator}) {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${Image})`,
-      width:1585,
-      height:757,
+      width: '100%',
+      height: 757,
     }
-  }
+  };
+
   return (
     <main>
       {
@@ -60,43 +70,18 @@ export default function Main() {
                     backgroundColor: "light.main",
                     fontSize: 12,
                     color: "black",
-                    
                   }}
                   >
                   <Admin />
                 </Box>
-                  <Box
-                  sx={{
-                    ml:130,
-                    mt:30,
-                    padding: 1,
-                    width: 450,
-                    height: 160,
-                    backgroundColor: "primary.main",
-                    fontSize: 12,
-                    color: "white",
-                  }}
-                  >
-                  <Recipient />
+                <Box sx={{ ml: 130, mt: 30, padding: 1, width: 450, height: 160, backgroundColor: 'primary.main', fontSize: 12, color: 'white', }} >
+                  <Recipient/>
                 </Box>
               </Box>
+              </div>}
           </Paper>
-            </Box>
-          </Box>
-          {/* <Box
-            sx={{
-              justifycontent: "center",
-              alignItems: "center",
-              width: 1,
-              height: 800,
-              backgroundColor: "light.main",
-              color: "third.main",
-            }}
-            >
-            <Typography>Not Logged In</Typography>
-          </Box> */}
-        </>
-      }
+        </Box>
+      </Box>
     </main>
   );
-}
+});
