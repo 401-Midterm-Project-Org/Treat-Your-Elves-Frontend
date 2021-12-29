@@ -36,7 +36,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({gr
         GROUP ELVES
       </Typography>
       <List>
-        {myMembers?.map(
+        {members?.map(
           member => (
             <ListItem key={member.id}>
               {member.name}
@@ -48,7 +48,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({gr
               <Button
                 variant="contained"
                 size="small"
-                onClick={removeMember}>Remove</Button>
+                onClick={() => removeMember(member.id, group.id)}>Remove</Button>
             </ListItem>))}
       </List>
     </>
