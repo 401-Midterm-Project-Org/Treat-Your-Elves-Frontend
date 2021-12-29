@@ -1,10 +1,10 @@
 const initialState = {
   user: {
-    id: crypto.randomUUID(),
+    // id: crypto.randomUUID(),
     // token: null,
-    isLoggedIn: true,
-    username: 'santa',
-    email: 's@clause.biz',
+    // isLoggedIn: true,
+    // username: 'santa',
+    // email: 's@clause.biz',
     // picture: null,
   },
   loadStatus: {
