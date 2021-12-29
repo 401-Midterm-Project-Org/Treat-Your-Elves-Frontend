@@ -14,16 +14,13 @@ export default function GroupInterface({myGroups}) {
     left: false
   });
 
-  function setGroupName(e) {
-    // todo: dispatch to react store
-  }
-
-  let groupName = '';
-  let email = '';
+  const [groupName, setGroupName] = React.useState('');
+  let groupAdminId = '';
+  let token = '';
 
   const handleCreateGroup = () => {
     // todo: dispatch result to react store
-    HttpService.createGroup(groupName, email);
+    HttpService.createGroup(groupName, groupAdminId, token);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -40,7 +37,6 @@ export default function GroupInterface({myGroups}) {
         width: 250, justifyContent: "center", alignItems: "center"
       }}
       role="presentation"
-      onKeyDown={toggleDrawer(anchor, false)}
     >
       <Box sx={{my: 4, justifyContent: "center", alignItems: "center"}} >
         <Typography variant="h4" component="div">Start A Group</Typography>
