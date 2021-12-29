@@ -5,7 +5,7 @@ import Notification from '../forms/Notification';
 
 
 const mapStateToProps = ({store}) => ({
-  selectedGroup: store.groupSelection,
+  selectedGroup: store.groups.filter(group => group.isSelected),
 });
 
 const mapDispatchToProps = (dispatch) => ({

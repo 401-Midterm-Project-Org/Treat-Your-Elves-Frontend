@@ -1,4 +1,4 @@
-import { Paper, Grid, Box } from '@mui/material';
+import {Box, Grid, Paper} from '@mui/material';
 import React from 'react';
 import {connect} from 'react-redux';
 import Image from '../../theme/pixel-xmas.gif';
@@ -10,7 +10,7 @@ import Wishlist from './Wishlist';
 
 const mapStateToProps = ({store}) => ({
   isLoggedIn: store.user.isLoggedIn,
-  selectedGroup: store.groupSelection,
+  selectedGroup: store.groups.filter(group => group.isSelected),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -27,23 +27,62 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLog
   };
 
   return (
-    <main xs={8} >
+    <main xs={8}>
       <Paper style={styles.paperContainer}>
-        <Grid container sx={{mt:'5%', justifyContent:'center'}}>
+        <Grid container sx={{mt: '5%', justifyContent: 'center'}}>
           {isLoggedIn &&
             <>
-              {selectedGroup?.isAdministrator &&
-                <Grid item sx={{ m: 3, padding: 1, width: 130, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5 }}>
+              {selectedGroup[0]?.isAdministrator &&
+                <Grid item sx={{
+                  m: 3,
+                  padding: 1,
+                  width: 130,
+                  height: 500,
+                  backgroundColor: 'light.main',
+                  color: 'primary.main',
+                  borderRadius: 5
+                }}>
                   <Admin/>
                 </Grid>}
-              <Grid item sx={{ m: 3, padding: 1, width: 250, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5}} >
+              <Grid item sx={{
+                m: 3,
+                padding: 1,
+                width: 250,
+                height: 500,
+                backgroundColor: 'light.main',
+                color: 'primary.main',
+                borderRadius: 5
+              }}>
                 <Members/>
               </Grid>
-              <Grid item sx={{  m: 3, padding: 1, width: 450, height: 500, backgroundColor: 'light.main', fontSize: 12, color: 'black', borderRadius: 5 }} >
-                <Box item sx={{ backgroundColor: 'primary.main', m: 1, borderRadius: 5, color: 'white',  fontSize: 12, height: 310 }} >
-                  <Wishlist />
+              <Grid item sx={{
+                m: 3,
+                padding: 1,
+                width: 450,
+                height: 500,
+                backgroundColor: 'light.main',
+                fontSize: 12,
+                color: 'black',
+                borderRadius: 5
+              }}>
+                <Box item sx={{
+                  backgroundColor: 'primary.main',
+                  m: 1,
+                  borderRadius: 5,
+                  color: 'white',
+                  fontSize: 12,
+                  height: 310
+                }}>
+                  <Wishlist/>
                 </Box>
-                <Box item sx={{ backgroundColor: 'primary.main', m: 1, borderRadius: 5, color: 'white',  fontSize: 12, height: 150 }} >
+                <Box item sx={{
+                  backgroundColor: 'primary.main',
+                  m: 1,
+                  borderRadius: 5,
+                  color: 'white',
+                  fontSize: 12,
+                  height: 150
+                }}>
                   <Recipient/>
                 </Box>
               </Grid>
