@@ -43,14 +43,30 @@ const mapDispatchToProps = (dispatch) => ({
       });
     }
      */
+    handleClose();
+
+    // todo: get name from backend
+    // todo: get email from backend
+    // todo: get id from backend
+    // todo: get token from backend
+
+    const name = crypto.randomUUID();
+    const email = crypto.randomUUID();
+
     dispatch({
       type: 'USER_LOGGED_IN',
       payload: {
-        isLoggedIn: true,
-        isAdministrator: true,
-        username: username,
-        token: crypto.randomUUID(),
-        id: crypto.randomUUID(),
+        user: {
+          id: crypto.randomUUID(),
+          token: crypto.randomUUID(),
+          isLoggedIn: true,
+          name,
+          username,
+          email,
+        },
+        loadStatus: {
+          isLoading: false,
+        },
       },
     });
   }
@@ -77,16 +93,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
         onClose={handleClose}
       >
         <Box sx={style}>
-          <FormGroup>
+          <FormGroup type="submit">
             <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">User Name</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+              <InputLabel htmlFor="username-input">User Name</InputLabel>
+              <Input id="username-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setUsername(e.target.value);
               }}/>
             </FormControl>
             <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">Password</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
+              <InputLabel htmlFor="password-input">Password</InputLabel>
+              <Input id="password-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
               }}/>
             </FormControl>
