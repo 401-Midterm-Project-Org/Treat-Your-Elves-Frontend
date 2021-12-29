@@ -203,6 +203,22 @@ class HttpService {
     }
   }
 
+// update a wishlist item
+  static async deleteItem(wishlistId, token){
+    try{
+      await axios({
+        method: 'delete',
+        url: `${APP_URL}/listItem/${wishlistId}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+      });
+      return 'successfully deleted';
+    }catch(e){
+      new Error(`couldn't delete item... ${e}`);
+    }
+  }
+
 // create secret santa pairing
   static async createPairs(groupid, token){
     try{
