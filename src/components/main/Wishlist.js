@@ -1,7 +1,8 @@
-import {Button, Typography, Modal, Box, FormGroup, FormControl, Input, InputLabel} from '@mui/material';
-import HttpService from '../../services/httpService';
-import { useState } from 'react';
+import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal, Typography} from '@mui/material';
+import {useState} from 'react';
 import {connect} from 'react-redux';
+import HttpService from '../../services/httpService';
+
 
 const style = {
   position: 'absolute',
@@ -15,9 +16,20 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = ({store}) => ({
-  //
-});
+const mapStateToProps = ({store}) => {
+/*
+  const wishlists = store.groups
+    .filter(group => group.isSelected)
+    .flatMap(group => group.wishlists);
+
+  const selectedGroup = store.groups.filter(group => group.isSelected)[0];
+*/
+
+  return {
+    wishlists: store.wishlists.filter(l => l.isSelected),
+    group: store.groups.filter(group => group.isSelected)[0],
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   update: () => {
@@ -32,27 +44,32 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({myWishlist, update}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({wishlists, update}) {
   const [open, setOpen] = useState(false);
   const [wish, setWish] = useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleUpdate = (wish) => {
+    //
+  };
+  const handleDelete = () => {
+    //
   };
 
   return (
     <>
       <Typography variant="h4" component="div">
-        My Wishlist
+        Wishlist
       </Typography>
       <Button>ADD WISH</Button>
       <ul>
-        {myWishlist?.map(
-          item => (
-            <li key={item.id}>
-              {item.itemName}
-              <Button variant="contained" size="small" onClick={() => HttpService.deleteItem(item.id, 'token')} >DELETE</Button>
+        {wishlists?.map(
+          wishlist => (
+            <li key={wishlist.id}>
+              {wishlist.itemName}
+              <Button variant="contained" size="small"
+                      onClick={() => handleDelete(wishlist.userId)}>DELETE</Button>
               <Button variant="contained" size="small" onClick={() => handleOpen}>UPDATE</Button>
             </li>))}
       </ul>
