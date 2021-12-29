@@ -19,36 +19,47 @@ const initialState = {
     itemName: 'baseball',
     // isSelected: true,
   }, {
-    username: 'testmember1',
-    itemName: 'new name',
+    username: 'rudolph',
+    itemName: 'blue nose',
     // isSelected: true,
   }, {
-    username: 'testmember2',
-    itemName: 'cool thing',
+    username: 'steven',
+    itemName: 'fireplace',
     // isSelected: true,
   }, {
-    username: 'tray',
-    itemName: 'vacation',
-  }],
+    username: 'steven',
+    itemName: 'marshmallows',
+    // isSelected: true,
+  }, {
+    username: 'steven',
+    itemName: 'travel van',
+    // isSelected: true,
+  },],
   groups: [{
     id: crypto.randomUUID(),
-    groupName: 'inb4',
+    groupName: 'penguins',
     groupMembers: [{
       id: crypto.randomUUID(),
       name: 'tim',
-    }],
+    }, {
+      id: crypto.randomUUID(),
+      name: 'santa',
+    },],
     // isSelected: true,
     // isAdministrator: true,
   }, {
     id: crypto.randomUUID(),
-    groupName: 'second!',
+    groupName: 'polar bears',
     groupMembers: [{
       id: crypto.randomUUID(),
-      name: 'testmember1'
+      name: 'rudolph'
     }, {
       id: crypto.randomUUID(),
-      name: 'testmember2'
-    }],
+      name: 'steven'
+    }, {
+      id: crypto.randomUUID(),
+      name: 'santa',
+    },],
     // isSelected: true,
     isAdministrator: true,
   }],
