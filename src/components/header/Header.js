@@ -1,6 +1,6 @@
-import MenuIcon from '@mui/icons-material/Menu';
 import {AppBar, Box, IconButton, Toolbar, Typography,} from '@mui/material';
 import HeaderButtons from './HeaderButtons';
+import GroupInterface from '../main/GroupInterface';
 
 
 export default function Header() {
@@ -15,7 +15,7 @@ export default function Header() {
             aria-label="menu"
             sx={{mr: 2}}
           >
-            <MenuIcon/>
+            <GroupInterface />
           </IconButton>
           <Typography variant="h3" component="div" color="light" sx={{flexGrow: 1}}>
             <img
