@@ -23,7 +23,7 @@ export default function GroupInterface({myGroups}) {
 
   const handleCreateGroup = () => {
     // todo: dispatch result to react store
-    HttpService.createGroup(groupName, email);
+    // HttpService.createGroup(groupName, email);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -36,7 +36,7 @@ export default function GroupInterface({myGroups}) {
 
   const list = (anchor) => (
     <Box
-      sx={{ 
+      sx={{
         width: 250, justifyContent: "center", alignItems: "center"
       }}
       role="presentation"
