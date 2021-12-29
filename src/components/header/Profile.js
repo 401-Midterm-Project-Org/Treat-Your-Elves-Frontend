@@ -1,12 +1,12 @@
 import {connect} from 'react-redux';
 
 
-const mapStateToProps = (state) => ({
-  isLoading: state.userProfile.isLoading,
-  isLoggedIn: state.user.isLoggedIn,
-  username: state.user.username,
-  userEmail: state.userProfile.email,
-  userPicture: state.userProfile.picture,
+const mapStateToProps = ({store}) => ({
+  isLoggedIn: store.user.isLoggedIn,
+  username: store.user.username,
+  userEmail: store.user.email,
+  userPicture: store.user.picture,
+  isLoading: store.loadStatus.isLoading,
 });
 
 // todo: when user clicks login button, isLoading needs dispatched to true

@@ -3,22 +3,15 @@ import {Button} from '@mui/material';
 import {connect} from 'react-redux';
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({store}) => ({
   // todo: need any state?
 });
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => {
-    // todo: async/await logout on backend --> invalidate token
-
     dispatch({
       type: 'USER_LOGOUT',
-      payload: {
-        isLoggedIn: false,
-        username: null,
-        token: null,
-        id: null,
-      },
+      payload: {},
     });
   }
 });

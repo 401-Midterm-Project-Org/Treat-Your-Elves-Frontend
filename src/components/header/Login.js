@@ -2,7 +2,6 @@ import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
-import HttpService from '../../services/httpService';
 
 
 const style = {
@@ -17,10 +16,13 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = ({store}) => ({
+  //
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: async (username, password, handleClose) => {
+    /*
     const result = await HttpService.login(username, password);
 
     // todo: get isAdministrator from backend, for now it's hardcoded all admins
@@ -30,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
       handleClose();
 
       dispatch({
-        type: 'USER_LOGIN',
+        type: 'USER_LOGGED_IN',
         payload: {
           isLoggedIn: true,
           isAdministrator: true,
@@ -40,6 +42,17 @@ const mapDispatchToProps = (dispatch) => ({
         },
       });
     }
+     */
+    dispatch({
+      type: 'USER_LOGGED_IN',
+      payload: {
+        isLoggedIn: true,
+        isAdministrator: true,
+        username: username,
+        token: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+      },
+    });
   }
 });
 
@@ -71,7 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
                 setUsername(e.target.value);
               }}/>
             </FormControl>
-            <FormControl sx={{my: 2}} >
+            <FormControl sx={{my: 2}}>
               <InputLabel htmlFor="my-input">Password</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
