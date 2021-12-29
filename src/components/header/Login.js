@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch) => ({
     // todo: get id from backend
     // todo: get token from backend
 
-    const name = crypto.randomUUID();
-    const email = crypto.randomUUID();
+    const name = 'santa';
+    const email = 'saintnick@northpole.org';
 
     dispatch({
       type: 'USER_LOGGED_IN',

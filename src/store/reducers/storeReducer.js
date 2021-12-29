@@ -19,7 +19,7 @@ const initialState = {
       name: 'hello!',
     }],
     // isSelected: true,
-    isAdministrator: true,
+    // isAdministrator: true,
   }, {
     id: crypto.randomUUID(),
     groupName: 'second!',
