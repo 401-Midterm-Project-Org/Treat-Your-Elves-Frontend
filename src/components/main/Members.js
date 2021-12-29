@@ -1,10 +1,15 @@
 import {Button, Typography} from '@mui/material';
 import {connect} from 'react-redux';
-import HttpService from '../../services/httpService';
 
-const mapStateToProps = (state) => ({
-  myMembers: state.myGroups.members,
+
+const mapStateToProps = ({store}) => ({
+  members: store.groups
+    .filter(group => group.isSelected)
+    .flatMap(group => group.groupMembers),
+
+  group: store.groups.filter(group => group.isSelected)[0],
 });
+
 const mapDispatchToProps = (dispatch) => ({
   showWishList: () => {
     dispatch({
@@ -12,62 +17,38 @@ const mapDispatchToProps = (dispatch) => ({
       payload: true,
     });
   },
-  /*
-  addMember: async (groupId, username, token) => {
-    // const response = await HttpService.addMember(groupId, username, token);
-    // const data = response.data;
 
+  removeMember: async (id, groupId) => {
     dispatch({
-      type: 'ADD_GROUPS',
-      payload:{
-        groups: [{
-          id: 1,
-          name: 'aaa',
-          email: 'aaa@aaa.com',
-        },{
-          id: 2,
-          name: 'bbb',
-          email: 'bbb@bbb.com',
-        }],
-      }
-    });
-  },
-    */
-  removeMember: async (groupId, userId, token) => {
-    // const removeMemberReponse = await HttpService.removeMember(groupId, userId, token);
-    // const response = await HttpService.removeMember(groupId, userId, token);
-
-    dispatch({
-      type: 'REMOVE_MEMBER',
+      type: 'MEMBER_REMOVED',
       payload: {
+        id,
         groupId,
-        userId,
       }
     });
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Members({myMembers, showWishList, removeMember}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Members({group, members, showWishList, removeMember}) {
   return (
     <>
       <Typography variant="h4" component="div">
         GROUP ELVES
       </Typography>
       <ul>
-        {myMembers?.map(
-          member => (
-            <li key={member.id}>
-              {member.name}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={showWishList}>Show Wishlist</Button>
-                {/* remove member only shows if admin */}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={removeMember}>Remove Member</Button>
-            </li>))}
+        {members?.map(member => (
+          <li key={member.id}>
+            {member.name}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={showWishList}>Show Wishlist</Button>
+            {/* remove member only shows if admin */}
+            {group.isAdministrator && <Button
+              variant="contained"
+              size="small"
+              onClick={() => removeMember(member.id, group.id)}>Remove Member</Button>}
+          </li>))}
       </ul>
     </>
   );

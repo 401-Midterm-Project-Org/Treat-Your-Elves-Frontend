@@ -20,12 +20,11 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
+const mapStateToProps = ({store}) => ({
+  isLoggedIn: store.user.isLoggedIn,
 });
 
 export default connect(mapStateToProps)(function HeaderButtons({isLoggedIn}) {
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -53,7 +52,7 @@ export default connect(mapStateToProps)(function HeaderButtons({isLoggedIn}) {
         open={open}
       >
         <Box style={style}>
-          <Profile />
+          <Profile/>
         </Box>
       </Modal>
     </>

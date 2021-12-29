@@ -2,7 +2,6 @@ import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
-import HttpService from '../../services/httpService';
 
 
 const style = {
@@ -17,12 +16,13 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({store}) => ({
   // todo: need any state dependency?
 });
 
 const mapDispatchToProps = (dispatch) => ({
   register: async (name, username, password, email, handleClose) => {
+    /*
     const result = await HttpService.register(username, name, password, email);
     const token = result.data.token;
     const id = result.data.user.id;
@@ -30,7 +30,6 @@ const mapDispatchToProps = (dispatch) => ({
     const userGroupsResult = await HttpService.getUsersGroups(id, token);
     // get an array of association objects
 
-    // todo: get isAdministrator from backend, for now it's hardcoded all admins
     console.log(result.data);
 
     if (result.status === 201) {
@@ -47,6 +46,26 @@ const mapDispatchToProps = (dispatch) => ({
         },
       });
     }
+     */
+
+    // todo: get id from backend
+    // todo: get token from backend
+    dispatch({
+      type: 'USER_REGISTERED',
+      payload: {
+        user: {
+          id: crypto.randomUUID(),
+          token: crypto.randomUUID(),
+          isLoggedIn: true,
+          name,
+          username,
+          email,
+        },
+        loadStatus: {
+          isLoading: false,
+        },
+      },
+    });
   }
 });
 
@@ -71,29 +90,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
         onClose={handleClose}
       >
         <Box sx={style}>
-          <FormGroup >
-            <FormControl sx={{my: 2}} >
-              <InputLabel htmlFor="my-input">your name</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+          <FormGroup>
+            <FormControl sx={{my: 2}}>
+              <InputLabel htmlFor="name-input">your name</InputLabel>
+              <Input id="name-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setName(e.target.value);
               }}/>
             </FormControl>
-            <FormControl sx={{my: 2}} >
-              <InputLabel htmlFor="my-input">username</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+            <FormControl sx={{my: 2}}>
+              <InputLabel htmlFor="email-input">email</InputLabel>
+              <Input id="email-input" aria-describedby="my-helper-text" onChange={(e) => {
+                setEmail(e.target.value);
+              }}/>
+            </FormControl>
+            <FormControl sx={{my: 2}}>
+              <InputLabel htmlFor="username-input">username</InputLabel>
+              <Input id="username-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setUsername(e.target.value);
               }}/>
             </FormControl>
-            <FormControl sx={{my: 2}} >
-              <InputLabel htmlFor="my-input">password</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
+            <FormControl sx={{my: 2}}>
+              <InputLabel htmlFor="password-input">password</InputLabel>
+              <Input id="password-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
-              }}/>
-            </FormControl>
-            <FormControl sx={{my: 2}} >
-              <InputLabel htmlFor="my-input">email</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
-                setEmail(e.target.value);
               }}/>
             </FormControl>
             <Button variant="contained" onClick={handleRegister}>Register</Button>
