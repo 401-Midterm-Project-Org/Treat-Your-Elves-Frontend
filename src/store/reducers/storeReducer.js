@@ -10,11 +10,14 @@ const initialState = {
   loadStatus: {
     isLoading: true,
   },
+  groups: [],
+/*
   groups: [{
     id: crypto.randomUUID(),
     groupName: 'inb4',
     // groupMembers: null,
     // isSelected: true,
+    isAdministrator: true,
   }, {
     id: crypto.randomUUID(),
     groupName: 'second!',
@@ -27,6 +30,7 @@ const initialState = {
     }],
     // isSelected: true,
   }],
+*/
 };
 
 export default function storeReducer(state = initialState, action) {
