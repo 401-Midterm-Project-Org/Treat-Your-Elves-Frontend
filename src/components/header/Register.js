@@ -47,15 +47,23 @@ const mapDispatchToProps = (dispatch) => ({
       });
     }
      */
+
+    // todo: get id from backend
+    // todo: get token from backend
     dispatch({
       type: 'USER_REGISTERED',
       payload: {
-        isLoggedIn: true,
-        name,
-        username,
-        password,
-        email,
-        handleClose
+        user: {
+          id: crypto.randomUUID(),
+          token: crypto.randomUUID(),
+          isLoggedIn: true,
+          name,
+          username,
+          email,
+        },
+        loadStatus: {
+          isLoading: false,
+        },
       },
     });
   }
@@ -84,27 +92,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
         <Box sx={style}>
           <FormGroup>
             <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">your name</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+              <InputLabel htmlFor="name-input">your name</InputLabel>
+              <Input id="name-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setName(e.target.value);
               }}/>
             </FormControl>
             <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">username</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+              <InputLabel htmlFor="email-input">email</InputLabel>
+              <Input id="email-input" aria-describedby="my-helper-text" onChange={(e) => {
+                setEmail(e.target.value);
+              }}/>
+            </FormControl>
+            <FormControl sx={{my: 2}}>
+              <InputLabel htmlFor="username-input">username</InputLabel>
+              <Input id="username-input" aria-describedby="my-helper-text" onChange={(e) => {
                 setUsername(e.target.value);
               }}/>
             </FormControl>
             <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">password</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
+              <InputLabel htmlFor="password-input">password</InputLabel>
+              <Input id="password-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
-              }}/>
-            </FormControl>
-            <FormControl sx={{my: 2}}>
-              <InputLabel htmlFor="my-input">email</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
-                setEmail(e.target.value);
               }}/>
             </FormControl>
             <Button variant="contained" onClick={handleRegister}>Register</Button>
