@@ -14,11 +14,10 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'white',
+  bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  alignitems: 'center',
 };
 
 const mapStateToProps = (state) => ({
@@ -54,7 +53,7 @@ export default connect(mapStateToProps)(function HeaderButtons({isLoggedIn}) {
         open={open}
       >
         <Box style={style}>
-          <Profile/>
+          <Profile />
         </Box>
       </Modal>
     </>

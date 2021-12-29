@@ -14,7 +14,7 @@ const style = {
   p: 4,
 };
 
-export default function Recipient({myWishlist}) {
+export default function Wishlist({myWishlist}) {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
