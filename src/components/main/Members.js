@@ -1,10 +1,13 @@
 import {Button, Typography} from '@mui/material';
 import {connect} from 'react-redux';
-import HttpService from '../../services/httpService';
+
 
 const mapStateToProps = ({store}) => ({
-  myMembers: store.members,
+  members: store.groups
+    .filter(group => group.isSelected && group.groupMembers?.length > 0)
+    .flatMap(group => group.groupMembers),
 });
+
 const mapDispatchToProps = (dispatch) => ({
   showWishList: () => {
     dispatch({
@@ -47,27 +50,26 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Members({myMembers, showWishList, removeMember}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Members({members, showWishList, removeMember}) {
   return (
     <>
       <Typography variant="h4" component="div">
         GROUP ELVES
       </Typography>
       <ul>
-        {myMembers?.map(
-          member => (
-            <li key={member.id}>
-              {member.name}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={showWishList}>Show Wishlist</Button>
-                {/* remove member only shows if admin */}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={removeMember}>Remove Member</Button>
-            </li>))}
+        {members?.map(member => (
+          <li key={member.id}>
+            {member.name}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={showWishList}>Show Wishlist</Button>
+            {/* remove member only shows if admin */}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={removeMember}>Remove Member</Button>
+          </li>))}
       </ul>
     </>
   );
