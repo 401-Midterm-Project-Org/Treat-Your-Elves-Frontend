@@ -5,6 +5,7 @@ import Image from '../../theme/pixel-xmas.gif';
 import Admin from '../main/Admin';
 import Members from './Members';
 import Recipient from './Recipient';
+import Wishlist from './Wishlist';
 
 
 const mapStateToProps = (state) => ({
@@ -27,22 +28,28 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLog
 
   return (
     <main xs={8} >
-          <Paper style={styles.paperContainer}>
-      <Grid container sx={{mt:'5%', justifyContent:'center'}}>
-            {isLoggedIn &&
-              <>
+      <Paper style={styles.paperContainer}>
+        <Grid container sx={{mt:'5%', justifyContent:'center'}}>
+          {isLoggedIn &&
+            <>
+              <Grid item sx={{ m: 3, padding: 1, width: 130, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5}} >
+                <Admin/>
+              </Grid>
               <Grid item sx={{ m: 3, padding: 1, width: 250, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5}} >
                 <Members/>
               </Grid>
-              <Grid item sx={{  m: 3, padding: 1, width: 450, height: 95, backgroundColor: 'light.main', fontSize: 12, color: 'black', borderRadius: 5 }} >
-                <Admin/>
-                <Box item sx={{ backgroundColor: 'primary.main', mt: 2, borderRadius: 5, color: 'white',  fontSize: 12, height: 200 }} >
+              <Grid item sx={{  m: 3, padding: 1, width: 450, height: 500, backgroundColor: 'light.main', fontSize: 12, color: 'black', borderRadius: 5 }} >
+                <Box item sx={{ backgroundColor: 'primary.main', m: 1, borderRadius: 5, color: 'white',  fontSize: 12, height: 310 }} >
+                  <Wishlist />
+                </Box>
+                <Box item sx={{ backgroundColor: 'primary.main', m: 1, borderRadius: 5, color: 'white',  fontSize: 12, height: 150 }} >
                   <Recipient/>
                 </Box>
               </Grid>
-              </>}
-    </Grid>
-          </Paper>
+            </>
+          }
+        </Grid>
+      </Paper>
     </main>
   );
 });

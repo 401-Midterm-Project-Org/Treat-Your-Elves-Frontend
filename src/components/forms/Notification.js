@@ -44,7 +44,7 @@ const Notification = () => {
       <Button onClick={handleOpenNotifs} variant="contained"
               sx={{
                 display: 'inline-grid'
-              }}>Notifications</Button>
+              }}>SEND GROUP MESSAGE</Button>
 
       <Dialog open={openNotifs} onClose={handleCloseNotifs}>
         <DialogTitle>Send Notification</DialogTitle>
