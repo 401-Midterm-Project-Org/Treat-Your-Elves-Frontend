@@ -16,7 +16,7 @@ const initialState = {
     groupName: 'inb4',
     groupMembers: [],
     // isSelected: true,
-    isAdministrator: true,
+    // isAdministrator: true,
   }, {
     id: crypto.randomUUID(),
     groupName: 'second!',
@@ -81,10 +81,27 @@ export default function storeReducer(state = initialState, action) {
     case 'MEMBER_ADDED':
       return {
         ...state,
-        groups: [
-          ...state.groups,
-          payload.group,
-        ],
+        groups: state.groups.map(group => {
+          if (group.id === payload.groupId) {
+            return {...group, groupMembers: [...group.groupMembers, {id: payload.id, name: payload.name}]};
+          }
+          return group;
+        }),
+      };
+    case 'MEMBER_REMOVED':
+      return {
+        ...state,
+        groups: state.groups.map(group => {
+          if (group.id === payload.groupId) {
+            return {
+              ...group,
+              groupMembers: [
+                ...group.groupMembers.filter(m => m.id !== payload.id),
+              ]
+            };
+          }
+          return group;
+        }),
       };
     default:
       return state;

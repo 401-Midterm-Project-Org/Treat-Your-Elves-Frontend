@@ -9,22 +9,13 @@ const mapStateToProps = ({store}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleSubmit: (group, username) => {
-    const g = {
-      ...group,
-      groupMembers: [
-        // ...group[0].groupMembers,
-        {
-          id: crypto.randomUUID(),
-          name: username,
-        }
-      ],
-    };
-
     dispatch({
       type: 'MEMBER_ADDED',
       payload: {
         // group, username
-        group: g,
+        id: crypto.randomUUID(),
+        name: username,
+        groupId: group.id,
       },
     });
   },

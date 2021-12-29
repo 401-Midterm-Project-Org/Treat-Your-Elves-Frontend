@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = ({store}) => ({
   members: store.groups
-    .filter(group => group.isSelected && group.groupMembers?.length > 0)
+    .filter(group => group.isSelected)
     .flatMap(group => group.groupMembers),
+
+  group: store.groups.filter(group => group.isSelected)[0],
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,21 +18,18 @@ const mapDispatchToProps = (dispatch) => ({
     });
   },
 
-  removeMember: async (groupId, userId, token) => {
-    // const removeMemberReponse = await HttpService.removeMember(groupId, userId, token);
-    // const response = await HttpService.removeMember(groupId, userId, token);
-
+  removeMember: async (id, groupId) => {
     dispatch({
-      type: 'REMOVE_MEMBER',
+      type: 'MEMBER_REMOVED',
       payload: {
+        id,
         groupId,
-        userId,
       }
     });
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Members({members, showWishList, removeMember}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Members({group, members, showWishList, removeMember}) {
   return (
     <>
       <Typography variant="h4" component="div">
@@ -48,7 +47,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Members({me
             <Button
               variant="contained"
               size="small"
-              onClick={removeMember}>Remove Member</Button>
+              onClick={() => removeMember(member.id, group.id)}>Remove Member</Button>
           </li>))}
       </ul>
     </>
