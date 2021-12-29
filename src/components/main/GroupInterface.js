@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
         group: {
           id: crypto.randomUUID(),
           groupName,
-          isSelected: false,
+          isAdministrator: true,
         }
       },
     });
