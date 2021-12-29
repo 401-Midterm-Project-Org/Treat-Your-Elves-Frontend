@@ -20,6 +20,7 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = ({store}) => ({
   groups: store.groups,
+  user: store.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
     });
   },
 
-  createGroup: (groupName, closeModal) => {
+  createGroup: (groupName, closeModal, userId, userName) => {
     closeModal();
 
     dispatch({
@@ -44,14 +45,17 @@ const mapDispatchToProps = (dispatch) => ({
           groupName,
           isAdministrator: true,
           isSelected: true,
-          groupMembers: [],
+          groupMembers: [{
+            id: userId,
+            name: userName,
+          }],
         }
       },
     });
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterface({groups, groupClick, createGroup}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterface({user, groups, groupClick, createGroup}) {
   // groupName, groupAdminId
   const [state, setState] = useState({
     left: false
@@ -68,9 +72,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterf
 //     HttpService.createGroup(groupName, groupAdminId, token);
 
   const handleCreateGroup = (anchor) => {
+    console.log(user);
     createGroup(
       groupName,
-      () => setState({...state, [anchor]: false}));
+      () => setState({...state, [anchor]: false}),
+      user.id,
+      user.name);
   };
 
   const handleGroupClick = (group, anchor) => {
