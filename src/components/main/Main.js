@@ -10,14 +10,14 @@ import Wishlist from './Wishlist';
 
 const mapStateToProps = ({store}) => ({
   isLoggedIn: store.user.isLoggedIn,
-  isAdministrator: store.user.isAdministrator,
+  selectedGroup: store.groupSelection,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   //
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLoggedIn, isAdministrator}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLoggedIn, selectedGroup}) {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${Image})`,
@@ -32,9 +32,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Main({isLog
         <Grid container sx={{mt:'5%', justifyContent:'center'}}>
           {isLoggedIn &&
             <>
-              <Grid item sx={{ m: 3, padding: 1, width: 130, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5}} >
-                <Admin/>
-              </Grid>
+              {selectedGroup?.isAdministrator &&
+                <Grid item sx={{ m: 3, padding: 1, width: 130, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5 }}>
+                  <Admin/>
+                </Grid>}
               <Grid item sx={{ m: 3, padding: 1, width: 250, height: 500, backgroundColor: 'light.main', color: 'primary.main', borderRadius: 5}} >
                 <Members/>
               </Grid>

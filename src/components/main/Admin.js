@@ -1,17 +1,26 @@
-import {Button, Typography, Divider, ListItem, List} from '@mui/material';
+import {Button, Divider, List, ListItem, Typography} from '@mui/material';
+import {connect} from 'react-redux';
 import AddMember from '../forms/AddMember';
 import Notification from '../forms/Notification';
 
 
-export default function Admin() {
+const mapStateToProps = ({store}) => ({
+  selectedGroup: store.groupSelection,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  //
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Admin({selectedGroup}) {
   return (
     <>
       <List sx={{
-        display:'flex',
+        display: 'flex',
         flexDirection: 'column',
-        flexWrap:'no-wrap',
-        justifyContent:'center',
-        alignItems:'center',
+        flexWrap: 'no-wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: 120
       }}>
         <ListItem>
@@ -20,43 +29,43 @@ export default function Admin() {
           </Typography>
         </ListItem>
       </List>
-      <Divider />
+      <Divider/>
       <List sx={{
-        display:'flex',
+        display: 'flex',
         flexDirection: 'column',
-        flexWrap:'no-wrap',
-        justifyContent:'center',
-        alignItems:'center',
+        flexWrap: 'no-wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: 100
-        }}>
+      }}>
         <ListItem>
-          <Notification />
+          <Notification/>
         </ListItem>
         <ListItem>
           <AddMember/>
         </ListItem>
       </List>
-      <Divider />
+      <Divider/>
       <List sx={{
-      display:'flex',
-      flexDirection: 'column',
-      flexWrap:'no-wrap',
-      justifyContent:'center',
-      alignItems:'center',
-      width: 100
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'no-wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100
       }}>
         <ListItem>
           <Button variant="contained">PAIR MEMBERS!</Button>
         </ListItem>
       </List>
-      <Divider />
+      <Divider/>
       <List sx={{
-      display:'flex',
-      flexDirection: 'column',
-      flexWrap:'no-wrap',
-      justifyContent:'center',
-      alignItems:'center',
-      width: 100
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'no-wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100
       }}>
         <ListItem>
           <Button variant="contained">DELETE GROUP</Button>
@@ -64,4 +73,4 @@ export default function Admin() {
       </List>
     </>
   );
-}
+});
