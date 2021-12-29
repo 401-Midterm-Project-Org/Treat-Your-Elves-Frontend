@@ -4,10 +4,14 @@ import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-
 const Notification = () => {
 
-  const notify = () => toast('🔔 Your email has been sent. ❄️❄️❄️');
+  const notify = () => toast('🔔🔔🔔 Your email has been sent. 🔔🔔🔔', {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: true,
+    pauseOnHover: false,
+  });
   const [openNotifs, setOpenNotifs] = useState(false);
   const [text, setText] = useState('')
   const [sent, setSent] = useState(false)
@@ -21,6 +25,10 @@ const Notification = () => {
     } catch(error) {
       console.log(error)
     }
+  }
+
+  const handleReset = () => {
+    setText('')
   }
 
   const handleOpenNotifs = () => {
@@ -51,13 +59,15 @@ const Notification = () => {
             variant="standard"
             onChange={(e) => setText(e.target.value)}
             value={text}
-            onSubmit={handleSend}
+            
           />
         </FormControl>
         <DialogActions>
           <Button type="submit" onClick={() => {
             notify();
             handleCloseNotifs();
+            handleSend();
+            handleReset();
           }}>
             Send
           </Button>
@@ -65,12 +75,7 @@ const Notification = () => {
         </DialogActions>
       </Dialog>
 
-      <ToastContainer
-      position='top-center'
-      autoClose={3000}
-      hideProgressBar={true}
-      pauseOnHover={false}
-      />
+      <ToastContainer />
     </>
   );
 };
