@@ -11,11 +11,11 @@ const mapStateToProps = ({store}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showWishList: (userName) => {
+  showWishList: (username) => {
     dispatch({
       type: 'WISHLIST_CLICKED',
       payload: {
-        userName,
+        username,
       },
     });
   },
