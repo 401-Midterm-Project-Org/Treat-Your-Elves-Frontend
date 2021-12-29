@@ -1,16 +1,34 @@
-import {Button, Checkbox, Dialog, DialogActions, DialogTitle, FormControl, FormControlLabel} from '@mui/material';
+import {Button, Dialog, DialogActions, DialogTitle, FormControl, TextField} from '@mui/material';
 import {useState} from 'react';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import axios from "axios";
 
 const Notification = () => {
 
-  const notify = () => toast('🎇 Your alert Has been sent! 🎇');
+  const notify = () => toast('🔔🔔🔔 Your email has been sent. 🔔🔔🔔', {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: true,
+    pauseOnHover: false,
+  });
   const [openNotifs, setOpenNotifs] = useState(false);
+  const [text, setText] = useState('')
+  const [sent, setSent] = useState(false)
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const handleSend = async() => {
+    setSent(true)
+    try {
+      await axios.post("http://localhost:3001/sendmail", {
+        text,
+      })
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  const handleReset = () => {
+    setText('')
   }
 
   const handleOpenNotifs = () => {
@@ -31,19 +49,33 @@ const Notification = () => {
       <Dialog open={openNotifs} onClose={handleCloseNotifs}>
         <DialogTitle>Send Notification</DialogTitle>
         <FormControl>
-          <FormControlLabel control={<Checkbox/>} label="Thirty days until Party!!!"/>
+        <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Notify your elves"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            
+          />
         </FormControl>
         <DialogActions>
-          <Button onClick={() => {
+          <Button type="submit" onClick={() => {
             notify();
             handleCloseNotifs();
-            handleSubmit();
-          }}>Send</Button>
+            handleSend();
+            handleReset();
+          }}>
+            Send
+          </Button>
           <Button onClick={handleCloseNotifs}>Cancel</Button>
         </DialogActions>
       </Dialog>
 
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };
