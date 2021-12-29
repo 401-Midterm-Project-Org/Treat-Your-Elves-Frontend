@@ -1,5 +1,5 @@
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
-import {Box, Button, FormControl, FormGroup, FormHelperText, Input, InputLabel, Modal} from '@mui/material';
+import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
 import HttpService from '../../services/httpService';
@@ -24,6 +24,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   register: async (name, username, password, email, handleClose) => {
     const result = await HttpService.register(username, name, password, email);
+    const token = result.data.token;
+    const id = result.data.user.id;
+
+    const userGroupsResult = await HttpService.getUsersGroups(id, token);
+    // get an array of association objects
 
     // todo: get isAdministrator from backend, for now it's hardcoded all admins
     console.log(result.data);
@@ -35,10 +40,10 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'USER_REGISTERED',
         payload: {
           isLoggedIn: true,
-          isAdministrator: true,
-          username: username,
-          token: result.data.token,
-          id: result.data.user.id,
+          username,
+          token,
+          id,
+          userGroups: userGroupsResult.data,
         },
       });
     }
@@ -81,7 +86,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register({r
             </FormControl>
             <FormControl sx={{my: 2}} >
               <InputLabel htmlFor="my-input">password</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+              <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
               }}/>
             </FormControl>

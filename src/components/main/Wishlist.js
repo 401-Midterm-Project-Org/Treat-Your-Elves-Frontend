@@ -1,6 +1,7 @@
 import {Button, Typography, Modal, Box, FormGroup, FormControl, Input, InputLabel} from '@mui/material';
 import HttpService from '../../services/httpService';
 import { useState } from 'react';
+import {connect} from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -14,17 +15,30 @@ const style = {
   p: 4,
 };
 
-export default function Wishlist({myWishlist}) {
+const mapStateToProps = (state) => ({
+  //
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  update: () => {
+    // HttpService.updateItem(wish, 'wishlistid', 'associationsId', 'token');
+
+    dispatch({
+      type: 'UPDATE_WISHLIST',
+      payload: {
+        //
+      },
+    });
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Wishlist({myWishlist, update}) {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const [wish, setWish] = useState('');
 
-  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleUpdate = (wish) => {
-    HttpService.updateItem(wish, 'wishlistid', 'associationsId', 'token');
   };
 
   return (
@@ -61,4 +75,4 @@ export default function Wishlist({myWishlist}) {
       </Modal>
     </>
   );
-}
+});

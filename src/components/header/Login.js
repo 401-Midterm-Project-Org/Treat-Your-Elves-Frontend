@@ -1,5 +1,5 @@
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
-import {Box, Button, FormControl, FormGroup, FormHelperText, Input, InputLabel, Modal} from '@mui/material';
+import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
 import HttpService from '../../services/httpService';
@@ -73,7 +73,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
             </FormControl>
             <FormControl sx={{my: 2}} >
               <InputLabel htmlFor="my-input">Password</InputLabel>
-              <Input id="my-input" aria-describedby="my-helper-text" onChange={(e) => {
+              <Input id="my-input" aria-describedby="my-helper-text" type="password" onChange={(e) => {
                 setPassword(e.target.value);
               }}/>
             </FormControl>

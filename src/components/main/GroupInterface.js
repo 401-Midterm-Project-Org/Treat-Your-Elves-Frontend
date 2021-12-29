@@ -9,8 +9,6 @@ import HttpService from '../../services/httpService';
 
 
 export default function GroupInterface({myGroups}) {
-  // TODO: This component will be a MUI pop-out drawer
-
   // groupName, groupAdminId
   const [state, setState] = React.useState({
     left: false
