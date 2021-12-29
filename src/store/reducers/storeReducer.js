@@ -19,7 +19,7 @@ const initialState = {
       name: 'hello!',
     }],
     // isSelected: true,
-    // isAdministrator: true,
+    isAdministrator: true,
   }, {
     id: crypto.randomUUID(),
     groupName: 'second!',
@@ -77,7 +77,12 @@ export default function storeReducer(state = initialState, action) {
       return {
         ...state,
         groups: [
-          ...state.groups,
+          ...state.groups.map(g => {
+            if (g.isSelected){
+              return {...g, isSelected: false};
+            }
+            return g;
+          }),
           payload.group,
         ],
       };

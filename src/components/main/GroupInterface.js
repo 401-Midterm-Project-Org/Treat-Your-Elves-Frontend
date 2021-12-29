@@ -23,7 +23,7 @@ const mapStateToProps = ({store}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGroupClick: group => {
+  groupClick: group => {
     //
     dispatch({
       type: 'GROUP_CLICKED',
@@ -33,7 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
     });
   },
 
-  createGroup: groupName => {
+  createGroup: (groupName, closeModal) => {
+    closeModal();
+
     dispatch({
       type: 'GROUP_CREATED',
       payload: {
@@ -41,6 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
           id: crypto.randomUUID(),
           groupName,
           isAdministrator: true,
+          isSelected: true,
           groupMembers: [],
         }
       },
@@ -48,15 +51,22 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterface({groups, handleGroupClick, createGroup}) {
+export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterface({groups, groupClick, createGroup}) {
   // groupName, groupAdminId
   const [state, setState] = useState({
     left: false
   });
   const [groupName, setGroupName] = useState();
 
-  const handleCreateGroup = () => {
-    createGroup(groupName);
+  const handleCreateGroup = (anchor) => {
+    createGroup(
+      groupName,
+      () => setState({...state, [anchor]: false}));
+  };
+
+  const handleGroupClick = (group, anchor) => {
+    groupClick(group);
+    setState({...state, [anchor]: false});
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -84,7 +94,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterf
                    aria-describedby="my-helper-text"/>
             <FormHelperText id="my-helper-text">eg. My Amazing Group</FormHelperText>
           </FormControl>
-          <Button variant="contained" onClick={handleCreateGroup} sx={{width: 200}}>+ Create Group</Button>
+          <Button variant="contained" onClick={() => handleCreateGroup(anchor)} sx={{width: 200}}>+ Create
+            Group</Button>
         </FormGroup>
       </Box>
       <Box sx={{my: 4}}>
@@ -93,7 +104,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterf
           {
             groups?.map(group => (
               <ListItem key={group.id} disablePadding>
-                <ListItemButton onClick={() => handleGroupClick(group)}>
+                <ListItemButton onClick={() => handleGroupClick(group, anchor)}>
                   <ListItemText primary={group.groupName}/>
                 </ListItemButton>
               </ListItem>
