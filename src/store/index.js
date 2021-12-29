@@ -1,18 +1,8 @@
 import {combineReducers, createStore} from 'redux';
-import myGroupsReducer from './reducers/myGroupsReducer.js';
-import userProfileReducer from './reducers/userProfileReducer';
-import userReducer from './reducers/userReducer';
-import wishListReducer from './reducers/wishListReducer';
-// import groupMemberReducer from './reducers/groupMembersReducer.js'
-// import wishlistReducer from './reducers/wishlistReducer.js';
+import storeReducer from './reducers/storeReducer';
 
 const reducers = combineReducers({
-  myGroups: myGroupsReducer,
-  user: userReducer,
-  wishList: wishListReducer,
-  userProfile: userProfileReducer,
-  // members: groupMemberReducer,
-  // wishlist: wishlistReducer
+  store: storeReducer,
 });
 
 const store = () => createStore(reducers);

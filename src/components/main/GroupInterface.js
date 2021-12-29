@@ -1,26 +1,82 @@
-import {Box, Button, Drawer, FormControl, FormGroup, FormHelperText, Input, InputLabel, Typography} from '@mui/material';
 import MenuOpenTwoToneIcon from '@mui/icons-material/MenuOpenTwoTone';
-import * as React from 'react';
+import {
+  Box,
+  Button,
+  Drawer,
+  FormControl,
+  FormGroup,
+  FormHelperText,
+  Input,
+  InputLabel,
+  Typography
+} from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import HttpService from '../../services/httpService';
+import {Fragment, useState} from 'react';
+import {connect} from 'react-redux';
 
 
-export default function GroupInterface({myGroups}) {
+const mapStateToProps = ({store}) => ({
+  groups: store.groups,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  groupClick: group => {
+    //
+    dispatch({
+      type: 'GROUP_CLICKED',
+      payload: {
+        group
+      },
+    });
+  },
+
+  createGroup: (groupName, closeModal) => {
+    closeModal();
+
+    dispatch({
+      type: 'GROUP_CREATED',
+      payload: {
+        group: {
+          id: crypto.randomUUID(),
+          groupName,
+          isAdministrator: true,
+          isSelected: true,
+          groupMembers: [],
+        }
+      },
+    });
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function GroupInterface({groups, groupClick, createGroup}) {
   // groupName, groupAdminId
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     left: false
   });
+  const [groupName, setGroupName] = useState();
 
-  const [groupName, setGroupName] = React.useState('');
-  let groupAdminId = '';
-  let token = '';
 
-  const handleCreateGroup = () => {
-    // todo: dispatch result to react store
-    HttpService.createGroup(groupName, groupAdminId, token);
+//   const [groupName, setGroupName] = React.useState('');
+//   let groupAdminId = '';
+//   let token = '';
+
+//   const handleCreateGroup = () => {
+//     // todo: dispatch result to react store
+//     HttpService.createGroup(groupName, groupAdminId, token);
+
+  const handleCreateGroup = (anchor) => {
+    createGroup(
+      groupName,
+      () => setState({...state, [anchor]: false}));
+  };
+
+  const handleGroupClick = (group, anchor) => {
+    groupClick(group);
+    setState({...state, [anchor]: false});
+
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -28,35 +84,37 @@ export default function GroupInterface({myGroups}) {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    setState({...state, [anchor]: open});
   };
 
   const list = (anchor) => (
     <Box
-      sx={{ 
-        width: 250, justifyContent: "center", alignItems: "center"
+      sx={{
+        width: 250, justifyContent: 'center', alignItems: 'center'
       }}
       role="presentation"
     >
-      <Box sx={{my: 4, justifyContent: "center", alignItems: "center"}} >
+      <Box sx={{my: 4, justifyContent: 'center', alignItems: 'center'}}>
         <Typography variant="h4" component="div">Start A Group</Typography>
-        <FormGroup sx={{my: 2, alignItems: "center"}}>
-          <FormControl sx={{my: 4}} >
+        <FormGroup sx={{my: 2, alignItems: 'center'}}>
+          <FormControl sx={{my: 4}}>
             <InputLabel htmlFor="groupname">Group Name</InputLabel>
-            <Input onChange={event => setGroupName(event.target.value)} id="my-input" aria-describedby="my-helper-text"/>
+            <Input onChange={event => setGroupName(event.target.value)} id="my-input"
+                   aria-describedby="my-helper-text"/>
             <FormHelperText id="my-helper-text">eg. My Amazing Group</FormHelperText>
           </FormControl>
-          <Button variant="contained" onClick={handleCreateGroup} sx={{width: 200}}>+ Create Group</Button>
+          <Button variant="contained" onClick={() => handleCreateGroup(anchor)} sx={{width: 200}}>+ Create
+            Group</Button>
         </FormGroup>
       </Box>
       <Box sx={{my: 4}}>
         <Typography variant="h4" component="div">My Groups</Typography>
         <List sx={{my: 4}}>
           {
-            myGroups?.map(association => (
-              <ListItem key={association.groupAdminId} disablePadding>
-                <ListItemButton>
-                  <ListItemText primary={association.groupName}/>
+            groups?.map(group => (
+              <ListItem key={group.id} disablePadding>
+                <ListItemButton onClick={() => handleGroupClick(group, anchor)}>
+                  <ListItemText primary={group.groupName}/>
                 </ListItemButton>
               </ListItem>
             ))
@@ -72,18 +130,18 @@ export default function GroupInterface({myGroups}) {
   return (
     <>
       {['left'].map((anchor) => (
-        <React.Fragment key={anchor}>
-        <MenuOpenTwoToneIcon onClick={toggleDrawer(anchor, true)}/>
-        <Drawer
-          anchor={anchor}
-          open={state[anchor]}
-          onClose={toggleDrawer(anchor, false)}
+        <Fragment key={anchor}>
+          <MenuOpenTwoToneIcon onClick={toggleDrawer(anchor, true)}/>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
           >
-          {list(anchor)}
-        </Drawer>
+            {list(anchor)}
+          </Drawer>
 
-      </React.Fragment>
+        </Fragment>
       ))}
     </>
   );
-}
+});
