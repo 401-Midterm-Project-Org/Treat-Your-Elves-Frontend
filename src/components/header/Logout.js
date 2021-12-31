@@ -1,21 +1,18 @@
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import {Button} from '@mui/material';
 import {connect} from 'react-redux';
+import {logout} from '../../store/actions/users';
 
 
-const mapStateToProps = ({store}) => ({
-  // todo: need any state?
-});
+function Logout({logoutClick}) {
+  return <Button color="secondary" onClick={logoutClick}><LogoutTwoToneIcon/>LOGOUT</Button>;
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => {
-    dispatch({
-      type: 'USER_LOGOUT',
-      payload: {},
-    });
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(function Logout({logout}) {
-  return <Button color="secondary" onClick={logout}><LogoutTwoToneIcon/>LOGOUT</Button>;
-});
+export default connect(
+  () => ({
+    //
+  }),
+  ({
+    logoutClick: logout,
+  })
+)(Logout);
