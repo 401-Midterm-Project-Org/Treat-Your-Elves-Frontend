@@ -2,6 +2,7 @@ import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {Box, Button, FormControl, FormGroup, Input, InputLabel, Modal} from '@mui/material';
 import {useState} from 'react';
 import {connect} from 'react-redux';
+import {login} from '../../store/actions/users';
 
 
 const style = {
@@ -16,63 +17,8 @@ const style = {
   p: 4,
 };
 
-const mapStateToProps = ({store}) => ({
-  //
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  login: async (username, password, handleClose) => {
-    /*
-    const result = await HttpService.login(username, password);
-
-    // todo: get isAdministrator from backend, for now it's hardcoded all admins
-    console.log(result.data);
-
-    if (result.status === 200) {
-      handleClose();
-
-      dispatch({
-        type: 'USER_LOGGED_IN',
-        payload: {
-          isLoggedIn: true,
-          isAdministrator: true,
-          username: username,
-          token: result.data.token,
-          id: result.data.user.id,
-        },
-      });
-    }
-     */
-    handleClose();
-
-    // todo: get name from backend
-    // todo: get email from backend
-    // todo: get id from backend
-    // todo: get token from backend
-
-    const name = 'santa';
-    const email = 'saintnick@northpole.org';
-
-    dispatch({
-      type: 'USER_LOGGED_IN',
-      payload: {
-        user: {
-          id: crypto.randomUUID(),
-          token: crypto.randomUUID(),
-          isLoggedIn: true,
-          name,
-          username,
-          email,
-        },
-        loadStatus: {
-          isLoading: false,
-        },
-      },
-    });
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(function Login({login}) {
+function Login({loginClick}) {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -82,7 +28,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    login(username, password, handleClose);
+    loginClick(username, password, handleClose);
   };
 
   return (
@@ -113,4 +59,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login({logi
       </Modal>
     </>
   );
-});
+};
+
+export default connect(
+  () => ({
+    //
+  }),
+  {
+    loginClick: login,
+  },
+)(Login);
